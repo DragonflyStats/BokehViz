@@ -1,8 +1,10 @@
 Bokeh - Python Data Visualization
 =================================
 
-Pydata Bokeh - sample code chunks.
+Bokeh is a Python interactive visualization library for large datasets that natively uses the latest web technologies.
 
--iris
--correlion
+**Pydata Bokeh - sample code chunks.**
+
+-iris  
+-correlation  
 -stock market returns
