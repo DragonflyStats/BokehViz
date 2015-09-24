@@ -1,0 +1,931 @@
+Python Data Visualization Cookbook
+
+%% - http://cdn.oreillystatic.com/oreilly/booksamplers/packt/9781782163367_Sample.pdf
+
+
+Python Data Visualization Cookbook
+Igor Milovanović
+Chapter No. 4
+"More Plots and Customizations"
+In this package, you will find:
+A Biography of the author of the book
+A preview chapter from the book, Chapter NO.4 "More Plots and Customizations"
+A synopsis of the book’s content
+Information on where to buy this book
+About the Author
+Igor Milovanović is an experienced developer with a strong background in Linux
+system and software engineering. He has skills in building scalable data-driven
+distributed software-rich systems.
+He is an Evangelist for high-quality systems design who holds strong interests
+in software architecture and development methodologies. He is always persistent
+on advocating methodologies that promote high-quality software, such as test-driven
+development, one-step builds, and continuous integration.
+He also possesses solid knowledge of product development. Having field experience
+and official training, he is capable of transferring knowledge and communication flow
+from business to developers and vice versa.
+ %% ...........................
+\newpage %% - ----I am most grateful to my fiance for letting me spend endless hours on the
+work instead with her and for being an avid listener to my endless book
+monologues. I want to also thank my brother for always being my strongest
+supporter. I am thankful to my parents for letting me develop myself in
+various ways and become the person I am today.
+I could not write this book without enormous energy from open source
+community that developed Python, matplotlib, and all libraries that we
+have used in this book. I owe the most to the people behind all these
+projects. Thank you.
+ %% ...........................
+\newpage %% - ----Python Data Visualization Cookbook The best data is the data that we can see and understand. As developers, we want to
+create and build the most comprehensive and understandable visualizations. It is not
+always simple; we need to find the data, read it, clean it, massage it, and then use the
+right tool to visualize it. This book explains the process of how to read, clean, and
+visualize the data into information with straight and simple (and not so simple) recipes.
+How to read local data, remote data, CSV, JSON, and data from relational databases
+are all explained in this book.
+Some simple plots can be plotted with a simple one-liner in Python using matplotlib,
+but doing more advanced charting requires knowledge of more than just Python. We
+need to understand the information theory and human perception aesthetics to produce
+the most appealing visualizations.
+This book will explain some practices behind plotting with matplotlib in Python, statistics
+used, and usage examples for different charting features we should use in an optimal way.
+This book is written and the code is developed on Ubuntu 12.03 using Python 2.7,
+IPython 0.13.2, virtualenv 1.9.1, matplotlib 1.2.1, NumPy 1.7.1, and SciPy 0.11.0.
+%========================================================================================%
+What This Book Covers
+Chapter 1, Preparing Your Working Environment, covers a set of installation recipes
+and advices on how to install the required Python packages and libraries on
+your platform.
+Chapter 2, Knowing Your Data, introduces you to common data formats and how
+to read and write them, be it CSV, JSON, XSL, or relational databases.
+Chapter 3, Drawing Your First Plots and Customizing Them, starts with drawing
+simple plots and covers some of the customization.
+Chapter 4, More Plots and Customizations, follows up from previous chapter and
+covers more advanced charts and grid customization.
+Chapter 5, Making 3D Visualizations, covers three-dimensional data visualizations
+such as 3D bars, 3D histograms, and also matplotlib animations.
+ %% ...........................
+\newpage %% - ----Chapter 6, Plotting Charts with Images and Maps, covers image processing,
+projecting data onto maps, and creating CAPTCHA test images.
+Chapter 7, Using Right Plots to Understand Data, covers explanations and recipes
+on some more advanced plotting techniques such as spectrograms and correlations.
+Chapter 8, More on matplotlib Gems, covers a set of charts such as Gantt charts,
+box plots, and whisker plots, and also explains how to use LaTeX for rendering
+text in matplotlib.
+ %% ...........................
+\newpage %% - ----4
+More Plots and Customizations
+In this chapter we will learn about:
+\begin{itemize}
+\item Setting the transparency and size of axis labels
+\item Adding a shadow to the chart line
+\item Adding a data table to the figure
+\item Using subplots
+\item Customizing grids
+\item Creating contour plots
+\item Filling an under-plot area
+\item Drawing polar plots
+\item Visualizing the filesystem tree using a polar bar
+\end{itemize}
+
+Introduction
+In this chapter we will explore more advanced properties of the matplolib library. We are going
+to introduce more options and will look at how to achieve certain visually pleasing results.
+During this chapter we will seek the solutions to some non-trivial problems with representing
+data when simple charts are not enough. We will try to use more than one type of graph or
+create hybrid ones to cover some advanced data structures and the representation required.
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+110
+Setting the transparency and size of
+axis labels
+The Axes label describes what the data in the figure represents and is quite important in
+the viewer's understanding of the figure itself. By providing labels to the axes background,
+we help the viewer comprehend the information in an appropriate way.
+
+\subsection{Preparation}
+Before we dive into the code, it is important to understand how matplotlib organizes
+our figures.
+
+At the top level, there is a Figure instance containing all that we see and some more (that
+we don't see). The figure contains, among other things, instances of the Axes class as a fi eld
+Figure.axes. The Axes instances contain almost everything we care about: all the lines,
+points, and ticks and labels. So, when we call plot(), we are adding a line (matplotlib.
+lines.Line2D) to the Axes.lines list. If we plot a histogram (hist()), we are adding
+rectangles to the list of Axes.patches ("patches" is the term inherited from MATLAB™,
+and represents the "patch of color" concept).
+
+An instance of Axes also holds references to the XAxis and YAxis instances, which in turn
+refer to the x axis and y axis, respectively. XAxis and YAxis manage the drawing of the axis,
+labels, ticks, tick labels, locators, and formatters. We can reference those through Axes.
+xaxis and Axes.yaxis, respectively. We don't have to go all the way down to XAxis or
+YAxis instances to get to the labels as matplotlib gives us a helper method (practically a
+shortcut) that enables iterations via these labels: matplotlib.pyplot.xlabel() and
+matplotlib.pyplot.ylabel().
+How to do it...
+We will now create a new figure where we will:
+1. Create a plot with some random generated data.
+2. Add the title and axes labels.
+3. Add alpha settings.
+4. Add shadow effects to the title and axes labels.
+%=============================================================================================================%
+import matplotlib.pyplot as plt
+from matplotlib import patheffects
+import numpy as np
+ %% ...........................
+\newpage %% - ----Chapter 4
+111
+data = np.random.randn(70)
+fontsize = 18
+plt.plot(data)
+title = "This is figure title"
+x_label = "This is x axis label"
+y_label = "This is y axis label"
+title_text_obj = plt.title(title, fontsize=fontsize,
+verticalalignment='bottom')
+title_text_obj.set_path_effects([patheffects.
+withSimplePatchShadow()])
+# offset_xy -- set the 'angle' of the shadow
+# shadow_rgbFace -- set the color of the shadow
+# patch_alpha -- setup the transparency of the shadow
+offset_xy = (1, -1)
+rgbRed = (1.0,0.0,0.0)
+alpha = 0.8
+# customize shadow properties
+pe = patheffects.withSimplePatchShadow(offset_xy = offset_xy,
+ shadow_rgbFace = rgbRed,
+ patch_alpha = alpha)
+# apply them to the xaxis and yaxis labels
+xlabel_obj = plt.xlabel(x_label, fontsize=fontsize, alpha=0.5)
+xlabel_obj.set_path_effects([pe])
+ylabel_obj = plt.ylabel(y_label, fontsize=fontsize, alpha=0.5)
+ylabel_obj.set_path_effects([pe])
+plt.show()
+How it works...
+We already know all the familiar imports, parts that generate data, and basic plotting
+techniques so we will skip that. If you are not able to decipher the fi rst few lines of the
+example, please refer to Chapter 2, Knowing Your Data, and Chapter 3, Drawing Your
+First Plots and Customizing Them, where these concepts are already explained.
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+112
+After we plot the dataset, we are ready to add titles and labels, and customize
+their appearance.
+First, we add the title. Then we defi ne the font size and vertical alignment of the title text to
+be bottom. The default shadow effect is added to the title if we are using matplotlib.
+patheffects.withSimplePatchShadow() with no parameters. The default values for
+parameters are: offset_xy=(2,-2), shadow_rgbFace=None, and patch_alpha=0.7.
+The other values are center, top, and baseline but we choose bottom as the text will
+have some shadow. In the next line, we add shadow effect. The path effects are part of the
+matplotlib module matplotlib.patheffects that supports matplotlib.text.Text
+and matplotlib.patches.Patch.
+We now want to add different settings of the shadow to both the x and y axes. First, we
+customize the position (offset) of the shadow to the parent object, and then we set the color
+of the shadow. The color is here represented in triples (3-tuple) of fl oat values between 0.0
+and 1.0, for each of the RGB channels. Therefore, our red color is represented as (1.0,
+0.0, 0.0) (all red, no green, no blue).
+The transparency (or alpha) is set up as a normalized value, and we also want to set this up
+here to be different from default.
+With all the settings there, we instantiate matplotlib.patheffects.
+withSimplePatchShadow and hold the reference to it in the variable pe to
+reuse it few lines later.
+To be able to apply the shadow effect, we need to get to the label object. This is simple
+enough because matplotlib.pyplot.xlabel() returns a reference to the object
+(matplotlib.text.Text) that we use then to call set_path_effects([pe]).
+We fi nally show the plot and feel proud of our work.
+There's more...
+If you are not satisfi ed with the effects that matplotlib.patheffects currently offers,
+you can inherit the matplotlib.patheffects._Base class and override the draw_path
+method. Take a look at the code and comments on how to do that here:
+https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/
+patheffects.py#L47
+%===============================================================================================%
+ %% ...........................
+\newpage %% - ----Chapter 4
+113
+Adding a shadow to the chart line
+To be able to distinguish one particular plot line in the figure or just to fi t in the overall style
+of the output our figure is in, we sometimes need to add a shadow effect to the chart line
+(or histogram, for that matter). In this recipe we will be learning how to add a shadow effect
+to the plot's chart lines.
+\subsection{Preparation}
+To add shadows to the lines or rectangles in our charts, we need to use the transformation
+framework built in matplotlib and located in matplotlib.transforms.
+To understand how it all works, we need to explain what transformations are in matplotlib
+and how they work.
+Transformations know how to convert the given coordinates from their coordinate system
+into display. They also know how to convert them from display coordinates into their own
+coordinate system.
+The following table summarizes existing coordinate systems and what they represent:
+Coordinate
+system
+Transformation object Description
+Data Axes.transData Represents the user's data coordinate system.
+Axes Axes.transAxes Represents the Axes coordinate system, where
+(0,0) represents the bottom-left end of the axes
+and (1,1) represents the upper-right end of the
+axes.
+Figure Figure.transFigure This is the Figure coordinate system, where
+(0,0) represents the bottom-left end of the figure
+and (1,1) represents the upper-right end of the
+figure.
+Display None Represents the pixel coordinate system of the
+user display, where (0,0) represents the
+bottom-left of the display, and tuple (width,
+height) represents the upper-right of the display,
+where width and height are in pixels.
+Note how the display does not have a value in the column. This is because the default
+coordinate system is Display, so coordinates are always in pixels relative to your display
+coordinate systems. This is not very useful, and most often we want them normalized into
+Figure or Axes or a Data coordinate system.
+ %% ...........................
+%===============================================================================================%
+\newpage %% - ----More Plots and Customizations
+114
+This framework enables us to transform the current object into an offset object, that is,
+to place that object shifted for a certain distance from the original object.
+We will use this framework to create our desired effect on the plotted sine wave.
+How to do it...
+Here is the code recipe to add shadow to the plotted chart. The code is explained in the
+section that follows.
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.transforms as transforms
+def setup(layout=None):
+ assert layout is not None
+ fig = plt.figure()
+ ax = fig.add_subplot(layout)
+ return fig, ax
+def get_signal():
+ t = np.arange(0., 2.5, 0.01)
+ s = np.sin(5 * np.pi * t)
+ return t, s
+def plot_signal(t, s):
+ line, = axes.plot(t, s, linewidth=5, color='magenta')
+ return line,
+def make_shadow(fig, axes, line, t, s):
+ delta = 2 / 72. # how many points to move the shadow
+ offset = transforms.ScaledTranslation(delta, -delta, fig.dpi_
+scale_trans)
+ offset_transform = axes.transData + offset
+ # We plot the same data, but now using offset transform
+ # zorder -- to render it below the line
+ axes.plot(t, s, linewidth=5, color='gray',
+ transform=offset_transform,
+ %% ...........................
+%===============================================================================================%
+\newpage %% - ----Chapter 4
+115
+ zorder=0.5 * line.get_zorder())
+if __name__ == "__main__":
+ fig, axes = setup(111)
+ t, s = get_signal()
+ line, = plot_signal(t, s)
+ make_shadow(fig, axes, line, t, s)
+ axes.set_title('Shadow effect using an offset transform')
+ plt.show()
+4. Add shadow effects to the title and axes labels.
+%=============================================================================================================%
+We start reading the code from the bottom, after the if __name__ check. First, we create
+the figure and axes in setup(); after that, we obtain a signal (or generate data—sine wave).
+We plot the basic signal in plot_signal(). Then, we make the shadow transformation and
+plot the shadow in make_shadow().
+We use the offset effect to create an offset object underneath and just few points away from
+original object.
+The original object is a simple sine wave that we plot using the standard function plot().
+To add to this offset transformation, matplotlib contains helper transformation—
+matplotlib.transforms.ScaledTranslation.
+The values for dx and dy are defi ned in points, and as the point is 1/72 inches, we move the
+offset object 2pt right and 2pt down.
+If you want to learn more about how we converted the point to 1/71 inches,
+read more in this Wikipedia article: http://en.wikipedia.org/wiki/
+Point_%28typography%29.
+
+We can use matplotlib.transforms.ScaledTransformation(xtr, ytr,
+scaletr); here, xtr and ytr are translation offsets and scaletr is a transformation
+callable to scale xtr and ytr at transformation time and before display. The most common
+use case for this is transforming from points to display space: for example, to DPI so that the
+offset always stays at the same place no matter what the actual output—be it the monitor
+or printed material. The callable we use for this is already built in, and is available at
+Figure.dpi_scale_trans.
+We then plot the same data with the applied transformation.
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+%===============================================================================================%
+116
+There's more...
+Using transforms to add shadows is just one and not the most popular use case of this
+framework. To be able to do more with transformation framework, you will need to learn the
+details of how the transformation pipeline works and what the extension points are (what
+classes to inherit and how). It's easy enough because matplotlib is open source, and even if
+some code is not well documented, there is a source you can read from and use or change,
+thus contributing to the overall quality and usefulness of matplotlib.
+Adding a data table to the figure
+Although matplotlib is mainly a plotting library, it helps us with small errands when we are
+creating a chart, such as having a neat data table beside our beautiful chart. In this recipe
+we will be learning how to display a data table alongside the plots in the figure.
+4. Add shadow effects to the title and axes labels.
+%=============================================================================================================%
+\subsection{Preparation}
+It is important to understand why we are adding a table to a chart. The main intention
+of plotting data visually is to explain the otherwise not understandable (or hardly
+understandable) data values. Now, we want to add that data back. It is not wise
+just to cram a big table with values underneath the chart.
+But, carefully picked, maybe the summed or highlighted values from the whole, charted
+dataset can identify important parts of the chart or emphasize the important values
+for those places where the exact value (for example, yearly sales in USD) is important
+(or even required).
+How to do it...
+Here's the code to add a sample table to our figure:
+import matplotlib.pylab as plt
+import numpy as np
+plt.figure()
+ax = plt.gca()
+y = np.random.randn(9)
+col_labels = ['col1','col2','col3']
+row_labels = ['row1','row2','row3']
+table_vals = [[11, 12, 13], [21, 22, 23], [28, 29, 30]]
+row_colors = ['red', 'gold', 'green']
+ %% ...........................
+\newpage %% - ----Chapter 4
+117
+my_table = plt.table(cellText=table_vals,
+ colWidths=[0.1] * 3,
+ rowLabels=row_labels,
+ colLabels=col_labels,
+ rowColours=row_colors,
+ loc='upper right')
+plt.plot(y)
+plt.show()
+The previous code snippet gives a plot such as the following:
+How it works...
+Using plt.table() we create a table of cells and add it to the current axes. The table can
+have (optional) row and column headers. Each table cell contains either patch or text. The
+column widths and row heights for the table can be specifi ed. The return value is a sequence
+of objects (text, line, and patch instances) that the table is made of.
+ %% ...........................
+%===============================================================================================%
+\newpage %% - ----More Plots and Customizations
+118
+The basic function signature is:
+table(cellText=None, cellColours=None,
+ cellLoc='right', colWidths=None,
+ rowLabels=None, rowColours=None, rowLoc='left',
+ colLabels=None, colColours=None, colLoc='center',
+ loc='bottom', bbox=None)
+The function instantiates and returns the matplotlib.table.Table instance. This is
+usually the case with matplotlib; there's just one way to add the table to the figure. The
+object-oriented interface can be directly accessed. We can use the matplotlib.table.
+Table class directly to fi ne-tune our table before we add it onto our axes instance with
+add_table().
+There's more...
+You can have more control if you directly create an instance of matplotlib.table.Table
+and configure it before you add it to the axes instance. You can add the table instance
+to axes using Axes.add_table(table), where table is an instance of matplotlib.
+table.Table.
+Using subplots
+If you are reading this book from the start, you are probably familiar with the subplot class,
+a descendant of axes that lives on the regular grid of subplot instances. We are going to
+explain and demonstrate how to use subplots in advanced ways.
+In this recipe we will be learning how to create custom subplot confi gurations on our plots.
+\subsection{Preparation}
+The base class for subplots is matplotlib.axes.SubplotBase. These subplots are
+matplotlib.axes.Axes instances but provides helper methods for generating and
+manipulating a set of Axes within a figure.
+There is a class matplotlib.figure.SubplotParams, which holds all the parameters for
+subplot. The dimensions are normalized to the width or height of the figure. As we already
+know, if we don't specify any custom values, they will be read from the rc parameters.
+The scripting layer (matplotlib.pyplot) holds a few helper methods to
+manipulate subplots.
+matplotlib.pyplot.subplots is used for the easy creation of common layouts of
+subplots. We can specify the size of the grid—the number of rows and columns of the
+subplot grid.
+ %% ...........................
+\newpage %% - ----Chapter 4
+%===============================================================================================%
+119
+We can create subplots that share the x or y axes. This is achieved using sharex or the
+sharey keyword argument. The argument sharex can have the value True, in which case
+the x axis is shared among all the subplots. The tick labels will be invisible on all but the last
+row of plots. They can also be defi ned as String, with enumerated values of row, col, all, or
+none. The value all is the same as True, and the value none is the same as False. If the
+value row is specifi ed, each subplot row shares the x axis. If the value col is specifi ed, each
+subplot column shares the x axis. This helper returns tuple fig, ax where ax is either an
+axis instance or, if more than one subplot is created, an array of axis instances.
+matplotlib.pyplot.subplots_adjust is used to tune the subplot layout. The
+keyword arguments specify the coordinates of the subplots inside the figure (left, right,
+bottom, and top) normalized to figure size. White space can be specifi ed to be left
+between the subplots using the wspace and hspace arguments for width and height
+amounts respectively.
+How to do it...
+1. We will show you an example of using yet another helper function in the matplotlib
+toolkit—subplot2grid. We defi ne the grid's geometry and the subplot location. Note
+that this location is 0-based, not 1-based as we are used to in plot.subplot(). We
+can also use colspan and rowspan to allow the subplot to span multiple columns
+and rows in a given grid. For example, we will: create a figure; add various subplot
+layouts using subplot2grid; reconfigure the tick label size.
+2. Show the plot:
+import matplotlib.pyplot as plt
+plt.figure(0)
+axes1 = plt.subplot2grid((3, 3), (0, 0), colspan=3)
+axes2 = plt.subplot2grid((3, 3), (1, 0), colspan=2)
+axes3 = plt.subplot2grid((3, 3), (1, 2))
+axes4 = plt.subplot2grid((3, 3), (2, 0))
+axes5 = plt.subplot2grid((3, 3), (2, 1), colspan=2)
+# tidy up tick labels size
+all_axes = plt.gcf().axes
+for ax in all_axes:
+ for ticklabel in ax.get_xticklabels() + ax.get_yticklabels():
+ ticklabel.set_fontsize(10)
+plt.suptitle("Demo of subplot2grid")
+plt.show()
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+120
+When we execute the previous code, the following plot is created:
+How it works...
+We provide subplot2grid with a shape, location (loc), and optionally, rowspan and
+colspan. The important difference here is that the location is indexed from 0, and not
+from 1, as in figure.add_subplot.
+There's more...
+To give an example of another way you can customize the current axes or subplot:
+axes = fig.add_subplot(111)
+rectangle = axes.patch
+rectangle.set_facecolor('blue')
+Here we see that every axes instance contains a fi eld patch referencing the rectangle
+instance, thus representing the background of the current axes instance. This instance has
+properties that we can update, hence updating the current axes background. We can change
+its color, but we can also load an image to add a watermark protection, for example.
+ %% ...........................
+\newpage %% - ----Chapter 4
+121
+It is also possible to create a patch fi rst and then just add it to the axes background:
+fig = plt.figure()
+axes = fig.add_subplot(111)
+rect = matplotlib.patches.Rectangle((1,1), width=6, height=12)
+axes.add_patch(rect)
+# we have to manually force a figure draw
+axes.figure.canvas.draw()
+Customizing grids
+A grid is usually handy to have under lines and charts as it helps the human eye spot
+differences in pattern and compare plots visually in the figure. To be able to set up how
+visibly, how frequently, and in what style the grid is displayed—or whether it is displayed
+at all—we should use matplotlib.pyplot.grid.
+In this recipe we will be learning how to turn the grid on and off, and how to change the major
+and minor ticks on a grid.
+%----------------------------------------------------------------------------------%
+\subsection{Preparation}
+The most frequent grid customization is reachable in the matplotlib.pyplot.grid
+helper function.
+To see the interactive effect of this, you should run the following under ipython –pylab.
+The basic call to plt.grid() will toggle grid visibility in the current interactive session
+started by the last IPython PyLab environment:
+In [1]: plt.plot([1,2,3,3.5,4,4.3,3])
+Out[1]: [<matplotlib.lines.Line2D at 0x3dcc810>]
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+122
+Now we can toggle the grid on the same figure:
+In [2]: plt.grid()
+We turn the grid back on, as shown in the following plot:
+And then we turn if off again:
+In [3]: plt.grid()
+Apart from just turning them on and off, we can further customize the grid appearance.
+ %% ...........................
+\newpage %% - ----Chapter 4
+123
+We can manipulate the grid with just major ticks, or just minor ticks, or both; hence, the value
+of function argument which can be 'major', 'minor', or 'both'. Similar to this, we can
+control the horizontal and vertical ticks separately by using the argument axis that can have
+values 'x', 'y', or 'both'.
+All the other properties are passed via kwargs and represent a standard set of properties
+that a matplotlib.lines.Line2D instance can accept, such as color, linestyle,
+and linewidth; here is an example:
+ax.grid(color='g', linestyle='--', linewidth=1)
+How to do it...
+This is nice, but we want to be able to customize more. In order to do that we need to reach
+deeper into matplotlib and into mpl_toolkits and fi nd the AxesGrid module that allows
+us to make grids of axes in an easy and manageable way:
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import ImageGrid
+from matplotlib.cbook import get_sample_data
+def get_demo_image():
+ f = get_sample_data("axes_grid/bivariate_normal.npy",
+asfileobj=False)
+ # z is a numpy array of 15x15
+ Z = np.load(f)
+ return Z, (-3, 4, -4, 3)
+def get_grid(fig=None, layout=None, nrows_ncols=None):
+ assert fig is not None
+ assert layout is not None
+ assert nrows_ncols is not None
+ grid = ImageGrid(fig, layout, nrows_ncols=nrows_ncols,
+ axes_pad=0.05, add_all=True, label_mode="L")
+ return grid
+def load_images_to_grid(grid, Z, *images):
+ min, max = Z.min(), Z.max()
+ for i, image in enumerate(images):
+ axes = grid[i]
+ axes.imshow(image, origin="lower", vmin=min, vmax=max,
+ interpolation="nearest")
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+124
+if __name__ == "__main__":
+ fig = plt.figure(1, (8, 6))
+ grid = get_grid(fig, 111, (1, 3))
+ Z, extent = get_demo_image()
+ # Slice image
+ image1 = Z
+ image2 = Z[:, :10]
+ image3 = Z[:, 10:]
+ load_images_to_grid(grid, Z, image1, image2, image3)
+ plt.draw()
+ plt.show()
+The given code will render the following plot:
+How it works...
+In the function get_demo_image, we loaded data from the sample data directory that comes
+with matplotlib.
+The list grid holds our axes grid (in this case, ImageGrid).
+The variables image1, image2, and image3 hold sliced data from Z that we have split over
+multiple axes in the list grid.
+ %% ...........................
+\newpage %% - ----Chapter 4
+125
+Looping over all the grids, we are plotting data from im1, im2, and im3 using the standard
+imshow() call, while matplotlib takes care that everything is neatly rendered and aligned.
+Creating contour plots
+A contour plot displays the isolines of matrix. Isolines are curves where a function of two
+variables has the same value.
+In this recipe we will learn how to create contour plots.
+\subsection{Preparation}
+Contours are represented as a contour plot of matrix Z, where Z is interpreted as height
+with respect to the X-Y plane. Z is of minimum size 2 and must contain at least two
+different values.
+The problem with contour plots is that if they are coded without labeling the isolines,
+they render pretty useless as we cannot decode the high points from low points or fi nd
+local minimas.
+Here we need to label the contour also. The labeling of isolines can be done either by
+using labels (clabel()) or colormaps. If your output medium permits the usage of
+color, colormaps are preferred because viewers will be able to decode data more easily.
+The other risk with contour plots is choosing the number of isolines to plot. If we choose
+too many, the plot becomes too dense to decode, and if we go with too few isolines,
+we lose information and can perceive data differently.
+The function contour() will automatically guess how many isolines to plot, but we also have
+the ability to specify our own number.
+In matplotlib, we draw contour plots using matplotlib.pyplot.contour.
+There are two similar functions: contour() draws contour lines, and contourf() draws
+fi lled contours. We are going to demonstrate only contour(), but almost everything is
+applicable to contourf(). They understand almost the same arguments as well.
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+126
+The function contour() can have different call signatures, depending on what data we have
+and/or what the properties that we want to visualize are.
+Call signature Description
+contour(Z) Plots the contour of Z (array). The level values are chosen
+automatically.
+contour(X,Y,Z) Plots the contour of X, Y, and Z. The arrays X and Y are (x, y)
+surface coordinates.
+ contour(Z,N)
+contour(X,Y,Z,N)
+Plots the contour of Z, where the number of levels is defined
+with N. The level values are automatically chosen.
+contour(Z,V)
+contour(X,Y,Z,V)
+Plots the contour lines with levels at the values specified in V.
+contourf(..., V) Fills the len(V)-1 regions between the level values in
+sequence V.
+contour(Z, **kwargs) Uses keyword arguments to control common line properties
+(colors, line width, origin, color map, and so on).
+There exist certain constraints on the dimensionality and shape of X, Y, and Z. For example,
+X and Y can be of two dimensions and of the same shape as Z. If they are of one dimension,
+such that the length of X is equal to the number of columns in Z, then the length of Y will be
+equal to the number of rows in Z.
+How to do it...
+In the following code example, we will:
+1. Implement a function to act as a mock signal processor.
+2. Generate some linear signal data.
+3. Transform the data into suitable matrices for use in matrix operations.
+4. Plot contour lines.
+5. Add contour line labels.
+6. Show the plot.
+7. Import numpy as np.
+8. Import matplotlib as mpl.
+9. Import matplotlib.pyplot as plt.
+def process_signals(x,y):
+ return (1 – (x ** 2 + y ** 2)) * np.exp(-y ** 3 / 3)
+x = np.arange(-1.5, 1.5, 0.1)
+ %% ...........................
+\newpage %% - ----Chapter 4
+127
+y = np.arange(-1.5, 1.5, 0.1)
+# Make grids of points
+X,Y = np.meshgrid(x, y)
+Z = process_signals(X, Y)
+# Number of isolines
+N = np.arange(-1, 1.5, 0.3)
+# adding the Contour lines with labels
+CS = plt.contour(Z, N, linewidths=2, cmap=mpl.cm.jet)
+plt.clabel(CS, inline=True, fmt='%1.1f', fontsize=10)
+plt.colorbar(CS)
+plt.title('My function: $z=(1-x^2+y^2) e^{-(y^3)/3}$')
+plt.show()
+This will give us the following chart:
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+128
+How it works...
+We reached for little helpers from numpy to create our ranges and matrices.
+After we evaluated my_function into Z, we simply called contour, providing Z and the
+number of levels for isolines.
+At this point, try experimenting with the third parameter in the N arange() call.
+For example, instead of N = np.arange(-1, 1.5, 0.3), try changing 0.3 to 0.1 or 1
+to experience how the same data is seen differently, depending on how we encode the data
+in a contour plot.
+We also added a color map by simply giving it CS (a matplotlib.contour.
+QuadContourSet instance).
+Filling an under-plot area
+The basic way to draw a fi lled polygon in matplotlib is to use matplotlib.pyplot.fill.
+This function accepts similar arguments as matplotlib.pyplot.plot—multiple x and
+y pairs and other Line2D properties. This function returns the list of Patch instances that
+were added.
+In this recipe we will learn how to shade certain areas of plot intersections.
+\subsection{Preparation}
+matplotlib provides several functions to help us plot fi lled figures, apart from plotting functions
+that are inherently plotting closed fi lled polygons, such as histogram (), of course.
+We already mentioned one—matplotlib.pyplot.fill—but there are the matplotlib.
+pyplot.fill_between() and matplotlib.pyploy.fill_betweenx() functions
+too. These functions fi ll the polygons between two curves. The main difference between
+fill_between() and fill_betweenx() is that the latter fi lls between the x axis
+values, whereas the former fi lls between the y axis values.
+The function fill_between accepts argument x—an x axis array of data—and y1 and
+y2—the y axis arrays of the data. Using arguments, we can specify conditions under which
+the area will be fi lled. This condition is the Boolean condition, usually specifying the y axis
+value ranges. The default value is None—meaning, to fi ll everywhere.
+ %% ...........................
+\newpage %% - ----Chapter 4
+129
+How to do it...
+To start off with a simple example, we will fi ll the area under a simple function:
+import numpy as np
+import matplotlib.pyplot as plt
+from math import sqrt
+t = range(1000)
+y = [sqrt(i) for i in t]
+plt.plot(t, y, color='red', lw=2)
+plt.fill_between(t, y, color='silver')
+plt.show()
+The previous code gives us the following plot:
+This is fairly straightforward and gives an idea how fill_between() works. Note how we
+needed to plot the actual function line (using plot(), of course), where fill_between()
+just draws a polygonal area fi lled with color ('silver').
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+130
+We will demonstrate another recipe here. It will involve more conditioning for the fill
+function. The following is the code for the example:
+import matplotlib.pyplot as plt
+import numpy as np
+x = np.arange(0.0, 2, 0.01)
+y1 = np.sin(np.pi*x)
+y2 = 1.7*np.sin(4*np.pi*x)
+fig = plt.figure()
+axes1 = fig.add_subplot(211)
+axes1.plot(x, y1, x, y2, color='grey')
+axes1.fill_between(x, y1, y2, where=y2<=y1, facecolor='blue',
+interpolate=True)
+axes1.fill_between(x, y1, y2, where=y2>=y1, facecolor='gold',
+interpolate=True)
+axes1.set_title('Blue where y2 <= y1. Gold-color where y2 >= y1.')
+axes1.set_ylim(-2,2)
+# Mask values in y2 with value greater than 1.0
+y2 = np.ma.masked_greater(y2, 1.0)
+axes2 = fig.add_subplot(212, sharex=axes1)
+axes2.plot(x, y1, x, y2, color='black')
+axes2.fill_between(x, y1, y2, where=y2<=y1, facecolor='blue',
+interpolate=True)
+axes2.fill_between(x, y1, y2, where=y2>=y1, facecolor='gold',
+interpolate=True)
+axes2.set_title('Same as above, but mask')
+axes2.set_ylim(-2,2)
+axes2.grid('on')
+plt.show()
+ %% ...........................
+\newpage %% - ----Chapter 4
+131
+The preceding code will render the following plot:
+How it works...
+For this example, we fi rst created two sinusoidal functions that overlap at certain points.
+We also created two subplots to compare the two variations that render fi lled regions.
+In both cases, we used fill_between() with an argument, where, that accepts an
+N-length Boolean array and will fi ll over the regions where where equals True.
+The bottom subplot illustrates mask_greater, which masks an array at values greater than
+a given value. This is a function from the numpy.ma package to handle missing or invalid
+values. We turned the grid on the bottom axes to make it easier to spot this.
+Drawing polar plots
+If the data is already represented using polar coordinates, we can as well display it using polar
+figures. Even if the data is not in polar coordinates, we should consider converting it to polar
+form and draw on polar plots.
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+132
+To answer whether we want to do this, we need to understand what the data represents and
+what we are hoping to display to the end user. Imagining what the user will read and decode
+from our figures leads us usually to the best of visualizations.
+Polar plots are commonly used to display information that is radial in nature. For example, in
+sun path diagrams—we see the sky in radial projection, and the radiation maps of antennas
+radiate differently at different angles. You can learn more about this at: http://www.
+astronwireless.com/topic-archives-antenna-radiation-patterns.asp.
+In this recipe, we will learn how to change the coordinate system used in the plot and to use
+the polar coordinate system instead.
+\subsection{Preparation}
+To display data in polar coordinates, we must have appropriate data values. In the polar
+coordinate system, a point is described with radius distance (usually denoted with r) and
+angle (usually theta). The angle can be in radians or degrees, but matplotlib uses degrees.
+Similar enough to the function plot(), to draw polar plots, we will use the function polar() ,
+which accepts two same-length arrays of parameters, theta and r, for angle array and radius
+array, respectively. The function also accepts other formatting arguments, the same ones as
+plot() one does.
+We also need to tell matplotlib that we want axes in the polar coordinate system. This is done
+by providing the polar=True argument to the add_axes or add_subplot functions.
+Additionally, to set other properties on the figure, such as grids on radii or angles, we need
+to use matplotlib.pyplot.rgrids() to toggle radial grid visibility or to set up labels.
+Similarly, we use matplotlib.pyplot.thetagrid() to configure angle ticks and labels.
+How to do it...
+Here is one recipe that demonstrates how to plot polar bars:
+import numpy as np
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+figsize = 7
+colormap = lambda r: cm.Set2(r / 20.)
+N = 18 # number of bars
+fig = plt.figure(figsize=(figsize,figsize))
+ax = fig.add_axes([0.2, 0.2, 0.7, 0.7], polar=True)
+theta = np.arange(0.0, 2*np.pi, 2*np.pi/N)
+ %% ...........................
+\newpage %% - ----Chapter 4
+133
+radii = 20*np.random.rand(N)
+width = np.pi/4*np.random.rand(N)
+bars = ax.bar(theta, radii, width=width, bottom=0.0)
+for r, bar in zip(radii, bars):
+ bar.set_facecolor(colormap(r))
+ bar.set_alpha(0.6)
+plt.show()
+The preceding code snippet will give us the following plot:
+How it works...
+First, we create a square figure and add the polar axes to it. The figure does not have to be
+square, but then our polar plot will be ellipsoidal.
+We then generate random values for a set of angles (theta) and a set of polar distances
+(radii). Because we drew bars, we also needed a set of widths for each bar, so we also
+generated a set of widths. Since maplotlib.axes.bar accepts an array of values
+(as almost all the drawing functions in matplotlib do) we don't have to loop over this
+generated dataset; we just need to call the bar once with all the arguments passed to it.
+In order to make every bar easily distinguishable, we have to loop over each bar added to ax
+(Axes) and customize its appearance (face-color and transparency).
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+134
+Visualizing the fi lesystem tree using a
+polar bar
+We want to show in this recipe how to solve a "real-world" task—how to use matplotlib to
+visualize our directory occupancy.
+In this recipe we will learn how to visualize a fi lesystem tree with relative sizes.
+\subsection{Preparation}
+We all have big hard drives that sometimes contain stuff that we usually forget about. It would
+be nice to see what is inside such a directory, and what the biggest fi le inside is.
+Although there are many more sophisticated and elaborate software products for this job,
+we want to demonstrate how this is achievable using Python and matplotlib.
+How to do it...
+Let's perform the following steps:
+1. Implement a few helper functions to deal with folder discovery and internal
+data structures.
+2. Implement the main function, draw(), that does the plotting.
+3. Implement the main program body that verifi es the user input arguments:
+import os
+import sys
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+import numpy as np
+def build_folders(start_path):
+ folders = []
+
+ for each in get_directories(start_path):
+ size = get_size(each)
+ if size >= 25 * 1024 * 1024:
+ folders.append({'size' : size, 'path' : each})
+
+ for each in folders:
+ print "Path: " + os.path.basename(each['path'])
+ print "Size: " + str(each['size'] / 1024 / 1024) + " MB"
+ %% ...........................
+\newpage %% - ----Chapter 4
+135
+ return folders
+def get_size(path):
+ assert path is not None
+
+ total_size = 0
+ for dirpath, dirnames, filenames in os.walk(path):
+ for f in filenames:
+ fp = os.path.join(dirpath, f)
+ try:
+ size = os.path.getsize(fp)
+ total_size += size
+ #print "Size of '{0}' is {1}".format(fp, size)
+ except OSError as err:
+ print str(err)
+ pass
+ return total_size
+def get_directories(path):
+ dirs = set()
+ for dirpath, dirnames, filenames in os.walk(path):
+ dirs = set([os.path.join(dirpath, x) for x in dirnames])
+ break # we just want the first one
+ return dirs
+def draw(folders):
+ """ Draw folder size for given folder"""
+ figsize = (8, 8) # keep the figure square
+ ldo, rup = 0.1, 0.8 # leftdown and right up normalized
+ fig = plt.figure(figsize=figsize)
+ ax = fig.add_axes([ldo, ldo, rup, rup], polar=True)
+ # transform data
+ x = [os.path.basename(x['path']) for x in folders]
+ y = [y['size'] / 1024 / 1024 for y in folders]
+ theta = np.arange(0.0, 2 * np.pi, 2 * np.pi / len(x))
+ radii = y
+
+ bars = ax.bar(theta, radii)
+ middle = 90/len(x)
+ theta_ticks = [t*(180/np.pi)+middle for t in theta]
+ lines, labels = plt.thetagrids(theta_ticks, labels=x,
+frac=0.5)
+ for step, each in enumerate(labels):
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+136
+ each.set_rotation(theta[step]*(180/np.pi)+ middle)
+ each.set_fontsize(8)
+ # configure bars
+ colormap = lambda r:cm.Set2(r / len(x))
+ for r, each in zip(radii, bars):
+ each.set_facecolor(colormap(r))
+ each.set_alpha(0.5)
+
+ plt.show()
+4. Next, we will implement the main program body where we verify the input arguments
+given by the user when the program is called from the command line:
+if __name__ == '__main__':
+ if len(sys.argv) is not 2:
+ print "ERROR: Please supply path to folder."
+ sys.exit(-1)
+ start_path = sys.argv[1]
+
+ if not os.path.exists(start_path):
+ print "ERROR: Path must exits."
+ sys.exit(-1)
+
+ folders = build_folders(start_path)
+
+ if len(folders) < 1:
+ print "ERROR: Path does not contain any folders."
+ sys.exit(-1)
+
+ draw(folders)
+You need to run the following from the command line:
+$ python ch04_rec11_filesystem.py /usr/lib/
+ %% ...........................
+\newpage %% - ----Chapter 4
+137
+It will produce a plot similar to this one:
+How it works...
+We will start from the bottom of the code, after if __name__ == '__main__' because
+that is the place where our program starts.
+Using the module sys, we pick up command-line arguments; they represent the path to
+directory we want to visualize.
+The function build_folders builds the list of dictionaries, each containing the size and
+path that it found inside the given start_path. This function calls get_directories,
+which returns a list of all the subdirectories in start_path. Later, for each found directory,
+we calculated the sizes in bytes using the get_size function.
+For debugging purposes, we print our dictionary so that we are able to compare the figure to
+what our data looks like.
+ %% ...........................
+\newpage %% - ----More Plots and Customizations
+138
+After we have built the folders as a list of dictionaries, we pass them to a function, draw, that
+performs all the work of transforming the data to the right dimensions (here, we are using the
+polar coordinate system), constructing the polar figure, and drawing all the bars, ticks,
+and labels.
+Strictly speaking, we should divide this job into smaller functions, especially if this code is
+to be further developed.
+ %% ...........................
+\newpage %% - ----Where to buy this book
+You can buy Python Data Visualization Cookbook from the Packt Publishing website:
+http://www.packtpub.com/python-data-visualization-cookbook/book.
+Free shipping to the US, UK, Europe and selected Asian countries. For more information, please
+read our shipping policy.
+Alternatively, you can buy the book from Amazon, BN.com, Computer Manuals and
+most internet book retailers.
+www.PacktPub.com
+ %% ...........................
+www.packtpub.com/python-data-visualization-cookbook/book
