@@ -1,0 +1,158 @@
+%%- http://www.analyticsvidhya.com/blog/2015/08/interactive-data-visualization-library-python-bokeh/
+
+Introduction
+
+Recently, I was going through a video from SciPy 2015 conference, “Building Python Data Apps with Blaze and Bokeh“, recently held at Austin, Texas, USA. I couldn’t stop thinking about the power these two libraries provide to data scientists using Python across the globe. In this article, I will introduce you to the world of possibilities in data visualization using Bokeh and why I think this is a must learn / use library for every data scientist out there.
+
+Bokeh_Introduction Source: bokeh.pydata.org
+
+ 
+%========================================================================%
+What is Bokeh?
+
+Bokeh is a Python library for interactive visualization that targets web browsers for representation. This is the core difference between Bokeh and other visualization libraries. Look at the snapshot below, which explains the process flow of how Bokeh helps to present data to a web browser.
+
+Bokeh_IntroSource: Continuum Analytics
+
+
+%========================================================================% 
+
+As you can see, Bokeh has multiple language bindings (Python, R, lua and Julia). These bindings produce a JSON file, which works as an input for BokehJS (a Javascript library), which in turn presents data to the modern web browsers.
+
+Bokeh can produce elegant and interactive visualization like D3.js with high-performance interactivity over very large or streaming datasets. Bokeh can help anyone who would like to quickly and easily create interactive plots, dashboards, and data applications.
+
+
+%========================================================================%
+ 
+
+What does Bokeh offer to a data scientist like me?
+
+I started my data science journey as a BI professional and then worked my way through predictive modeling, data science and machine learning. I have primarily relied on tools like QlikView & Tableau for data visualization and SAS & Python for predictive analytics & data science. I had near zero experience of using JavaScript.
+
+So, for all my data products or ideas, I had to either outsource the work or had to pitch my ideas through wire-frames, both of which are not ideal for building quick prototypes. Now, with Bokeh, I can continue to work in Python ecosystem, but still create these prototypes quickly.
+
+Benefits of Bokeh:
+
+Bokeh allows you to build complex statistical plots quickly and through simple commands
+Bokeh provides you output in various medium like html, notebook and server
+We can also embed Bokeh visualization to flask and django app
+Bokeh can transform visualization written in other libraries like matplotlib, seaborn, ggplot
+Bokeh has flexibility for applying interaction, layouts and different styling option to visualization
+Challenges with Bokeh:
+
+Like with any upcoming open source library, Bokeh is undergoing a lot of development. So, the code you write today may not be entirely reusable in future.
+It has relatively less visualization options, when compared to D3.js. Hence, it is unlikely in near future that it will challenge D3.js for its crown.
+Given the benefits and the challenges, it is currently ideal to rapidly develop prototypes. However, if you want to create something for production environment, D3.js might still be your best bet.
+
+To install Bokeh, please follow the instruction given here.
+
+
+%========================================================================% 
+
+Visualization with Bokeh
+
+Bokeh offers both powerful and flexible features which imparts simplicity and highly advanced customization. 
+
+
+
+It provides multiple visualization interfaces to the user as shown below:Bokeh_Interface
+
+Charts: a high-level interface that is used to build complex statistical plots as quickly and in a simplistic manner.
+Plotting: an intermediate-level interface that is centered around composing visual glyphs.
+Models: a low-level interface that provides the maximum flexibility to application developers.
+In this article, we will look at first two interfaces charts & plotting only. 
+
+We will discuss models and other advance feature of this library in next post.
+
+
+%========================================================================% 
+
+Charts
+
+As mentioned above, it is a high level interface used to present information in standard visualization form. 
+These forms include box plot, bar chart, area plot, heat map, donut chart and many others. You can generate these plots just by passing data frames, numpy arrays and dictionaries.
+
+Let’s look at the common methodology to create a chart:
+
+Import the library and functions/ methods
+Prepare the data
+Set the output mode (Notebook, Web Browser or Server)
+Create chart with styling option (if required)
+Visualize the chart
+To understand these steps better, let me demonstrate these steps using example below:
+
+Charts Example-1: Create a bar chart and visualize it on web browser using Bokeh
+
+We will follow above listed steps to create a chart:
+
+#Import library
+from bokeh.charts import Bar, output_file, show #use output_notebook to visualize it in notebook
+# prepare data (dummy data)
+data = {"y": [1, 2, 3, 4, 5]}
+# Output to Line.HTML
+output_file("lines.html", title="line plot example") #put output_notebook() for notebook
+# create a new line chat with a title and axis labels
+p = Bar(data, title="Line Chart Example", xlabel='x', ylabel='values', width=400, height=400)
+# show the results
+show(p)
+Bar_Chart
+In the chart above,  you can see the tools at the top (zoom, resize, reset, wheel zoom) and these 
+tools allows you to interact with chart. 
+You can also look at the multiple chart options (legend, xlabel, ylabel, xgrid, width, height and many other) and 
+various example of charts here.
+
+
+%========================================================================% 
+
+Chart Example-2: Compare the distribution of sepal length and petal length of IRIS data set using 
+Box plot on notebook
+
+To create this visualization, firstly, I’ll import the iris data set using sklearn library. Then, 
+follow the steps as discussed above to visualize chart in ipython notebook.
+
+#IRIS Data Set
+from sklearn.datasets import load_iris
+import pandas as pd
+iris = load_iris()
+df=pd.DataFrame(iris.data)
+df.columns=['petal_width','petal_length','sepal_width','sepal_length']
+#Import library
+from bokeh.charts import BoxPlot, output_notebook, show
+data=df[['petal_length','sepal_length']]
+# Output to Notebook
+output_notebook()
+# create a new line chat with a title and axis labels
+p = BoxPlot(data, width=400, height=400)
+# show the results
+show(p)
+Bokeh_Box_Plot
+
+%========================================================================%
+ 
+
+Chart Example-3: Create a line plot to bokeh server
+
+Prior to plotting visualization to Bokeh server, you need to run it.
+
+If you are using a conda package, you can use run command bokeh-server from any directory 
+using command. Else, python ./bokeh-server command should work in general. For more detail on this 
+please refer this link “Deploying Bokeh Server“.
+
+There are multiple benefits of Plotting visualization on Bokeh server:
+
+Plots can be published to larger audience
+Visualize large data set interactively
+Streaming data to automatically updating plots
+Building dashboards and apps
+To start plotting on Bokeh server, I have executed the command bokeh-server to initialize it followed by 
+the commands used for visualization.
+
+Bokeh_Server
+
+from bokeh.plotting import figure, output_server, show
+output_server("line")
+p = figure(plot_width=400, plot_height=400)
+# add a line renderer
+p.line([5, 2, 3, 4, 5], [5, 7, 2, 4, 5], line_width=2)
+show(p)
+Bokeh_Server_Visualization
