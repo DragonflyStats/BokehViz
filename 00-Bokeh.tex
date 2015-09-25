@@ -9,7 +9,7 @@ graphics in the style of Protovis/D3, while delivering high-performance interact
 
 \end{quote}
 \end{framed}
-\edn{frame}
+\end{frame}
 %==================================%
 %==================================%
 \begin{frame}
@@ -23,3 +23,72 @@ pip install bokeh
 \end{framed}
 \edn{frame}
 %==================================%
+Introduction
+
+Recently, I was going through a video from SciPy 2015 conference, “Building Python Data Apps with Blaze and Bokeh“, recently held at Austin, Texas, USA. I couldn’t stop thinking about the power these two libraries provide to data scientists using Python across the globe. In this article, I will introduce you to the world of possibilities in data visualization using Bokeh and why I think this is a must learn / use library for every data scientist out there.
+
+Bokeh_Introduction Source: bokeh.pydata.org
+\end{frame}
+%==================================%
+%==================================%
+\begin{frame}
+%========================================================================%
+%==================================%
+\begin{frame} 
+\noindent \textbf{What is Bokeh?}
+
+Bokeh is a Python library for interactive visualization that targets web browsers for representation. This is the core difference between Bokeh and other visualization libraries. Look at the snapshot below, which explains the process flow of how Bokeh helps to present data to a web browser.
+
+Bokeh_IntroSource: Continuum Analytics
+
+\end{frame}
+%==================================%
+%==================================%
+\begin{frame}
+As you can see, Bokeh has multiple language bindings (Python, R, lua and Julia). These bindings produce a JSON file, which works as an input for BokehJS (a Javascript library), which in turn presents data to the modern web browsers.
+
+Bokeh can produce elegant and interactive visualization like D3.js with high-performance interactivity over very large or streaming datasets. Bokeh can help anyone who would like to quickly and easily create interactive plots, dashboards, and data applications.
+
+\end{frame}
+%==================================%
+%==================================%
+\begin{frame} 
+
+What does Bokeh offer to a data scientist like me?
+
+I started my data science journey as a BI professional and then worked my way through predictive modeling, data science and machine learning. I have primarily relied on tools like QlikView & Tableau for data visualization and SAS & Python for predictive analytics & data science. I had near zero experience of using JavaScript.
+
+So, for all my data products or ideas, I had to either outsource the work or had to pitch my ideas through wire-frames, both of which are not ideal for building quick prototypes. Now, with Bokeh, I can continue to work in Python ecosystem, but still create these prototypes quickly.
+\end{frame}
+%==================================%
+%==================================%
+\begin{frame}
+\noindent \textbf{Benefits of Bokeh:}
+
+\begin{itemize}
+\item Bokeh allows you to build complex statistical plots quickly and through simple commands
+\item Bokeh provides you output in various medium like html, notebook and server
+\item We can also embed Bokeh visualization to flask and django app
+\item Bokeh can transform visualization written in other libraries like matplotlib, seaborn, ggplot
+\item Bokeh has flexibility for applying interaction, layouts and different styling option to visualization
+\end{itemize}
+\end{frame}
+%==================================%
+%==================================%
+\begin{frame}
+\noindent \textbf{Challenges with Bokeh}
+\begin{itemize}
+\item Like with any upcoming open source library, Bokeh is undergoing a lot of development. So, the code you write today may not be entirely reusable in future.
+
+\item  It has relatively less visualization options, when compared to D3.js. Hence, it is unlikely in near future that it will challenge D3.js for its crown.
+\item  Given the benefits and the challenges, it is currently ideal to rapidly develop prototypes. However, if you want to create something for production environment, D3.js might still be your best bet.
+\end{itemize}
+\end{frame}
+%==================================%
+%==================================%
+\begin{frame}
+\framtitle{Installing Bokeh}
+To install Bokeh, please follow the instruction given here.
+
+
+%========================================================================%
