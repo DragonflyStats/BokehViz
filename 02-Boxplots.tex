@@ -1,0 +1,102 @@
+Box Plots
+The BoxPlot can be used to summarize the statistical properties of different groups of data. The label specifies a column in the data to group by, and a box plot is generated for each group:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label='cyl',
+            title="MPG Summary (grouped by CYL)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+The label can also accept a list of column names, in which case the data is grouped by all the groups in the list:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label=['cyl', 'origin'],
+            title="MPG Summary (grouped by CYL, ORIGIN)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+Box Color
+The color of the box in a BoxPlot can be set to a fixed color using the color parameter:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label='cyl', color='#00cccc',
+            title="MPG Summary (grouped by CYL)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+As with Bar charts, the color can also be given a column name, in which case the boxes are shaded automatically according to the group:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label='cyl', color='cyl',
+            title="MPG Summary (grouped and shaded by CYL)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+Whisker Color
+The color of the whiskers can be similary controlled using the whisker_color paramter. For a single color:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label='cyl', whisker_color='goldenrod',
+            title="MPG Summary (grouped by CYL, shaded whiskers)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+Or shaded automatically according to a column grouping:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label='cyl', whisker_color='cyl',
+            title="MPG Summary (grouped and whiskers shaded by CYL)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+Outliers
+By default, BoxPlot charts show outliers above and below the whiskers. However, the display of outliers can be turned on or off with the outliers parameter:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label='cyl', outliers=False,
+            title="MPG Summary (grouped by CYL, no outliers)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+Markers
+The marker used for displaying outliers is controlled by the marker parameter:
+
+from bokeh.charts import BoxPlot, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = BoxPlot(df, values='mpg', label='cyl', marker='square',
+            title="MPG Summary (grouped by CYL, square marker)")
+
+output_file("boxplot.html")
+
+show(p)
+	
+H
