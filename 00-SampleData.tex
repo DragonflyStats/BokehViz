@@ -1,0 +1,22 @@
+Sample Data
+%%- http://bokeh.pydata.org/en/latest/docs/installation.html
+
+
+%---------------------------------------%
+Some of the Bokeh examples rely on sample data that is not included in the Bokeh GitHub repository or released packages, due to their size. Once Bokeh is installed, the sample data can be obtained by executing the following commands at a python prompt:
+
+>>> import bokeh.sampledata
+>>> bokeh.sampledata.download()
+
+Or directly from a Bash or Windows command prompt:
+
+python -c "import bokeh.sampledata; bokeh.sampledata.download()"
+
+%---------------------------------------%
+
+Finally, the location that the sample data is stored can be configured. By default, data is downloaded and stored to a directory $HOME/.bokeh/data. (The directory is created if it does not already exist.) Bokeh looks for a YAML configuration file at $HOME/.bokeh/config. The YAML key sampledata_dir can be set to the absolute path of a directory where the data should be stored. For instance adding the following line to the config file:
+
+sampledata_dir: /tmp/bokeh_data
+will cause the sample data to be stored in /tmp/bokeh_data.
+
+%---------------------------------------%
