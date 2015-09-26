@@ -1,0 +1,234 @@
+nbviewer
+FAQ
+IPython
+Jupyter
+bokeh-notebooks   tutorial
+ 	
+Bokeh Tutorial — bokeh.models interface
+Models
+NYTimes interactive chart Usain Bolt vs. 116 years of Olympic sprinters
+
+The first thing we need is to get the data. The data for this chart is located in the bokeh.sampledata module as a Pandas DataFrame. You can see the first ten rows below:?
+
+In [1]:
+from bokeh.sampledata.sprint import sprint
+sprint[:10]
+Out[1]:
+Name	Country	Medal	Time	Year
+0	Usain Bolt	JAM	GOLD	9.63	2012
+1	Yohan Blake	JAM	SILVER	9.75	2012
+2	Justin Gatlin	USA	BRONZE	9.79	2012
+3	Usain Bolt	JAM	GOLD	9.69	2008
+4	Richard Thompson	TRI	SILVER	9.89	2008
+5	Walter Dix	USA	BRONZE	9.91	2008
+6	Justin Gatlin	USA	GOLD	9.85	2004
+7	Francis Obikwelu	POR	SILVER	9.86	2004
+8	Maurice Greene	USA	BRONZE	9.87	2004
+9	Maurice Greene	USA	GOLD	9.87	2000
+Next we import some of the Bokeh models that need to be assembled to make a plot. At a minimum, we need to start with Plot, the glyphs (Circle and Text) we want to display, as well as ColumnDataSource to hold the data and range obejcts to set the plot bounds.
+
+In [2]:
+from bokeh.io import output_notebook, show
+from bokeh.models.glyphs import Circle, Text
+from bokeh.models import ColumnDataSource, Range1d, DataRange1d, Plot
+In [3]:
+output_notebook()
+BokehJS successfully loaded.
+Setting up Data
+In [4]:
+abbrev_to_country = {
+    "USA": "United States",
+    "GBR": "Britain",
+    "JAM": "Jamaica",
+    "CAN": "Canada",
+    "TRI": "Trinidad and Tobago",
+    "AUS": "Australia",
+    "GER": "Germany",
+    "CUB": "Cuba",
+    "NAM": "Namibia",
+    "URS": "Soviet Union",
+    "BAR": "Barbados",
+    "BUL": "Bulgaria",
+    "HUN": "Hungary",
+    "NED": "Netherlands",
+    "NZL": "New Zealand",
+    "PAN": "Panama",
+    "POR": "Portugal",
+    "RSA": "South Africa",
+    "EUA": "United Team of Germany",
+}
+
+gold_fill   = "#efcf6d"
+gold_line   = "#c8a850"
+silver_fill = "#cccccc"
+silver_line = "#b0b0b1"
+bronze_fill = "#c59e8a"
+bronze_line = "#98715d"
+
+fill_color = { "gold": gold_fill, "silver": silver_fill, "bronze": bronze_fill }
+line_color = { "gold": gold_line, "silver": silver_line, "bronze": bronze_line }
+
+def selected_name(name, medal, year):
+    return name if medal == "gold" and year in [1988, 1968, 1936, 1896] else None
+
+t0 = sprint.Time[0]
+
+sprint["Abbrev"]       = sprint.Country
+sprint["Country"]      = sprint.Abbrev.map(lambda abbr: abbrev_to_country[abbr])
+sprint["Medal"]        = sprint.Medal.map(lambda medal: medal.lower())
+sprint["Speed"]        = 100.0/sprint.Time
+sprint["MetersBack"]   = 100.0*(1.0 - t0/sprint.Time)
+sprint["MedalFill"]    = sprint.Medal.map(lambda medal: fill_color[medal])
+sprint["MedalLine"]    = sprint.Medal.map(lambda medal: line_color[medal])
+sprint["SelectedName"] = sprint[["Name", "Medal", "Year"]].apply(tuple, axis=1).map(lambda args: selected_name(*args))
+
+source = ColumnDataSource(sprint)
+Basic Plot with Glyphs
+In [5]:
+plot_options = dict(plot_width=800, plot_height=480, toolbar_location=None, 
+                    outline_line_color=None, title = "Usain Bolt vs. 116 years of Olympic sprinters")
+In [6]:
+radius = dict(value=5, units="screen")
+medal_glyph = Circle(x="MetersBack", y="Year", radius=radius, fill_color="MedalFill", 
+                     line_color="MedalLine", fill_alpha=0.5)
+
+athlete_glyph = Text(x="MetersBack", y="Year", x_offset=10, text="SelectedName",
+    text_align="left", text_baseline="middle", text_font_size="9pt")
+
+no_olympics_glyph = Text(x=7.5, y=1942, text=["No Olympics in 1940 or 1944"],
+    text_align="center", text_baseline="middle",
+    text_font_size="9pt", text_font_style="italic", text_color="silver")
+In [7]:
+xdr = Range1d(start=sprint.MetersBack.max()+2, end=0)  # +2 is for padding
+ydr = DataRange1d(range_padding=0.05)  
+
+plot = Plot(x_range=xdr, y_range=ydr, **plot_options)
+plot.add_glyph(source, medal_glyph)
+plot.add_glyph(source, athlete_glyph)
+plot.add_glyph(no_olympics_glyph)
+Out[7]:
+<bokeh.models.renderers.GlyphRenderer at 0x1092e3048>
+In [8]:
+show(plot)
+Adding Axes and Grids
+In [9]:
+from bokeh.models import Grid, LinearAxis, SingleIntervalTicker
+In [10]:
+xdr = Range1d(start=sprint.MetersBack.max()+2, end=0)  # +2 is for padding
+ydr = DataRange1d(range_padding=0.05)  
+
+plot = Plot(x_range=xdr, y_range=ydr, **plot_options)
+plot.add_glyph(source, medal_glyph)
+plot.add_glyph(source, athlete_glyph)
+plot.add_glyph(no_olympics_glyph)
+Out[10]:
+<bokeh.models.renderers.GlyphRenderer at 0x1092fc470>
+In [11]:
+xticker = SingleIntervalTicker(interval=5, num_minor_ticks=0)
+xaxis = LinearAxis(ticker=xticker, axis_line_color=None, major_tick_line_color=None,
+                   axis_label="Meters behind 2012 Bolt", axis_label_text_font_size="10pt", 
+                   axis_label_text_font_style="bold")
+plot.add_layout(xaxis, "below")
+
+xgrid = Grid(dimension=0, ticker=xaxis.ticker, grid_line_dash="dashed")
+plot.add_layout(xgrid)
+
+yticker = SingleIntervalTicker(interval=12, num_minor_ticks=0)
+yaxis = LinearAxis(ticker=yticker, major_tick_in=-5, major_tick_out=10)
+plot.add_layout(yaxis, "right")
+In [12]:
+show(plot)
+Adding a Hover Tool
+In [13]:
+from bokeh.models import HoverTool
+In [14]:
+tooltips = """
+<div>
+    <span style="font-size: 15px;">@Name</span>&nbsp;
+    <span style="font-size: 10px; color: #666;">(@Abbrev)</span>
+</div>
+<div>
+    <span style="font-size: 17px; font-weight: bold;">@Time{0.00}</span>&nbsp;
+    <span style="font-size: 10px; color: #666;">@Year</span>
+</div>
+<div style="font-size: 11px; color: #666;">@{MetersBack}{0.00} meters behind</div>
+"""
+In [15]:
+xdr = Range1d(start=sprint.MetersBack.max()+2, end=0)  # +2 is for padding
+ydr = DataRange1d(range_padding=0.05)  
+
+plot = Plot(x_range=xdr, y_range=ydr, **plot_options)
+medal = plot.add_glyph(source, medal_glyph)  # we need this renderer to configure the hover tool
+plot.add_glyph(source, athlete_glyph)
+plot.add_glyph(no_olympics_glyph)
+
+xticker = SingleIntervalTicker(interval=5, num_minor_ticks=0)
+xaxis = LinearAxis(ticker=xticker, axis_line_color=None, major_tick_line_color=None,
+                   axis_label="Meters behind 2012 Bolt", axis_label_text_font_size="10pt", 
+                   axis_label_text_font_style="bold")
+plot.add_layout(xaxis, "below")
+
+xgrid = Grid(dimension=0, ticker=xaxis.ticker, grid_line_dash="dashed")
+plot.add_layout(xgrid)
+
+yticker = SingleIntervalTicker(interval=12, num_minor_ticks=0)
+yaxis = LinearAxis(ticker=yticker, major_tick_in=-5, major_tick_out=10)
+plot.add_layout(yaxis, "right")
+In [16]:
+hover = HoverTool(tooltips=tooltips, renderers=[medal])
+plot.add_tools(hover)
+In [17]:
+show(plot)
+In [18]:
+from bubble_plot import get_1964_data
+
+def get_plot():
+    return Plot(
+        x_range=Range1d(1, 9), y_range=Range1d(20, 100),
+        title="", plot_width=800, plot_height=400,
+        outline_line_color=None, toolbar_location=None,
+    )
+
+df = get_1964_data()
+df.head()
+Out[18]:
+fertility	life	population	region_color
+Afghanistan	7.671	33.639	9.129985	#fc8d59
+Albania	5.711	65.475	3.802632	#e6f598
+Algeria	7.653	47.953	9.630513	#fee08b
+American Samoa	NaN	NaN	3.000000	#99d594
+Andorra	NaN	NaN	3.000000	#e6f598
+In [19]:
+# EXERCISE: Add Circles to the plot from the data in `df`. 
+# With `fertility` for the x coordinates, `life` for the y coordinates.
+
+plot = get_plot()
+In [20]:
+# EXERCISE: Color the circles by region_color & change the size of the color by population
+In [21]:
+# EXERCISE: Add axes and grid lines
+In [22]:
+# EXERCISE: Manually add a legend using Circle & Text. The color key is as follows 
+
+region_name_and_color = [
+    ('America', '#3288bd'),
+    ('East Asia & Pacific', '#99d594'),
+    ('Europe & Central Asia', '#e6f598'),
+    ('Middle East & North Africa', '#fee08b'),
+    ('South Asia', '#fc8d59'),
+    ('Sub-Saharan Africa', '#d53e4f')
+]
+In [ ]:
+ 
+Back to top
+This web site does not host notebooks, it only renders notebooks available on other websites.
+
+Delivered by Fastly, Rendered by Rackspace
+
+nbviewer GitHub repository.
+
+nbviewer version: 03d6df0
+
+IPython version: 4.0.0
+
+Rendered in a few seconds
