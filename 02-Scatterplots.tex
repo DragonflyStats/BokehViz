@@ -1,0 +1,94 @@
+Scatter Plots
+The Scatter high-level chart can be used to generate 1D or (more commonly) 2D scatter plots. It is used by passing in DataFrame-like object as the first argument then specifying the columns to use for x and y coordinates:
+
+from bokeh.charts import Scatter, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = Scatter(df, x='mpg', y='hp', title="HP vs MPG",
+            xlabel="Miles Per Gallon", ylabel="Horsepower")
+
+output_file("scatter.html")
+
+show(p)
+	
+Color
+The color parameter can be used to control the color of the scatter markers:
+
+from bokeh.charts import Scatter, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = Scatter(df, x='mpg', y='hp', title="HP vs MPG", color="navy",
+            xlabel="Miles Per Gallon", ylabel="Horsepower")
+
+output_file("scatter.html")
+
+show(p)
+	
+Color Groups
+if color is supplied with the name of a data column then the data is first grouped by the values of that column, and then a different color is used for every group:
+
+from bokeh.charts import Scatter, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = Scatter(df, x='mpg', y='hp', color='cyl', title="HP vs MPG (shaded by CYL)",
+            xlabel="Miles Per Gallon", ylabel="Horsepower")
+
+output_file("scatter.html")
+
+show(p)
+	
+Legends
+When grouping, a legend is usually useful, and it’s location can be specified by the legend parameter:
+
+from bokeh.charts import Scatter, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = Scatter(df, x='displ', y='hp', color='cyl',
+            title="HP vs DISPL (shaded by CYL)", legend="top_left",
+            xlabel="Displacement", ylabel="Horsepower")
+
+output_file("scatter.html")
+
+show(p)
+	
+Markers
+The marker parameter can be used to control the shape of the scatter marker:
+
+from bokeh.charts import Scatter, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = Scatter(df, x='displ', y='hp', marker='square',
+            title="HP vs DISPL", legend="top_left",
+            xlabel="Displacement", ylabel="Horsepower")
+
+output_file("scatter.html")
+
+show(p)
+	
+As with color, the marker parameter can be given a column name to group by the values of that column, using a different marker shape for each group:
+
+from bokeh.charts import Scatter, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = Scatter(df, x='displ', y='hp', marker='cyl',
+            title="HP vs DISPL (marked by CYL)", legend="top_left",
+            xlabel="Displacement", ylabel="Horsepower")
+
+output_file("scatter.html")
+
+show(p)
+	
+Often it is most useful to group both the color and marker shape together:
+
+from bokeh.charts import Scatter, output_file, show
+from bokeh.sampledata.autompg import autompg as df
+
+p = Scatter(df, x='displ', y='hp', marker='cyl', color='cyl',
+            title="HP vs DISPL (marked by CYL)", legend="top_left",
+            xlabel="Displacement", ylabel="Horsepower")
+
+output_file("scatter.html")
+
+show(p)
+	
+C
