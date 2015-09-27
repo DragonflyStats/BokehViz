@@ -18,8 +18,10 @@ any of the 147 named CSS colors, e.g 'green', 'indigo'
 an RGB(A) hex value, e.g., '#FF0000', '#44444444'
 a 3-tuple of integers (r,g,b) between 0 and 255
 a 4-tuple of (r,g,b,a) where r, g, b are integers between 0 and 255 and a is a floating point value between 0 and 1
+%============================================================= %
 Properties
 Regardless of what API (models, plotting, or charts) is used to create a Bokeh plot, styling the visual aspects of the plot can always be accomplished by setting attributes on the Bokeh model objects that comprise the resulting plot. Visual properties come in three kinds: line, fill, and text properties. For full information with code and examples see the Styling Visual Properties section of the user guide.
+
 
 Line Properties
 Set the visual appearance of lines. The most common are line_color, line_alpha, line_width and line_dash.
@@ -31,12 +33,13 @@ Text Properties
 Set the visual appearance of lines of text. The most common are text_font, text_font_size, text_color, and text_alpha.
 
 Sometimes a prefix is used with property names, e.g. to distinguish between different line properties on the same object, or to give a more meaningful name. For example, to set the line width of the plot outline, you would say myplot.outline_line_width = 2.
-
+%================================================================================================= %
 Plots
 Many top-level attributes of plots (outline, border, etc.) can be configured. See the Plots section of the styling guide for full information.
 
 Here is an example that tweaks the plot outline:
 
+\begin{verbatim}
 In [3]:
 # create a new plot with a title
 p = figure(plot_width=400, plot_height=400)
@@ -48,10 +51,14 @@ p.circle([1,2,3,4,5], [2,5,8,2,7], size=10)
 
 show(p)
 	
+\end{verbatim}
+
 In [4]:
 # EXERCISE Create a plot of your own and customize several plot-level properties
 Axes
-Axes
+
+
+\subsection{Axes}
 
 To style axes, you first must get ahold of Axis objects. The simplest way is to use some convenience methods on Plot: axis, xaxis, and yaxis. These methods return lists of axis objects:
 
@@ -65,6 +72,8 @@ These are referred to as "splattable" lists, and tab completion works on them as
 
 In [5]:
 # EXERCISE Try out tab completion. Type p.xaxis.<press tab key> to see a list of attributes that can be set.
+\begin{framed}
+\begin{verbatim}
 axis
 line properties
 axis_label
@@ -81,9 +90,11 @@ minor_tick
 line properties
 minor_tick_in
 minor_tick_out
+\end{verbatim}
+\end{framed}
 As a simple first example, let's change the orientation of the major tick labels on both axes of a plot:
-
-In [6]:
+\begin{framed}
+	\begin{verbatim}
 from math import pi
 
 p = figure(plot_width=400, plot_height=400)
@@ -93,9 +104,11 @@ p.xaxis.major_label_orientation = pi/4
 p.yaxis.major_label_orientation = "vertical"
 
 show(p)
-	
+\end{verbatim}
+\end{framed}
 The next example shows customizations on several of the different Axis properties at once:
-
+\begin{framed}
+	\begin{verbatim}
 In [7]:
 p = figure(plot_width=400, plot_height=400)
 p.asterisk([1,2,3,4,5], [2,5,8,2,7], size=12, color="olive")
@@ -115,16 +128,22 @@ p.axis.minor_tick_in = -3
 p.axis.minor_tick_out = 6
 
 show(p)
-	
+\end{verbatim}
+\end{framed}	
 In [8]:
 # EXERCISE Create a plot of your own and customize several axis properties
 There are further customizations possible. See the User Guide for more information on topics such as tick label formatting or limiting axis bounds.
 
-Grids
-Grids
+\subsection{Grids}
 
-grid line properties
-band fill properties
+%======================================================================================== %
+
+Grids
+\begin{framed}
+\begin{verbatim}
+# grid line properties
+# band fill properties
+
 In [9]:
 p = figure(plot_width=400, plot_height=400)
 p.circle([1,2,3,4,5], [2,5,8,2,7], size=10)
@@ -137,7 +156,9 @@ p.ygrid.grid_line_alpha = 0.5
 p.ygrid.grid_line_dash = [6, 4]
 
 show(p)
-	
+\end{verbatim}
+\begin{framed}
+	\begin{verbatim}
 In [10]:
 p = figure(plot_width=400, plot_height=400)
 p.circle([1,2,3,4,5], [2,5,8,2,7], size=10)
@@ -150,12 +171,15 @@ p.ygrid.band_fill_alpha = 0.1
 p.ygrid.band_fill_color = "navy"
 
 show(p)
-	
-In [11]:
+\end{verbatim}
+
+\end{framed}
 # EXERCISE Create a plot of your own and customize several grid properties
 Legends
-Legends
+\subsection{Legends}
 
+\begin{framed}
+\begin{verbatim}
 In [12]:
 import numpy as np
 
@@ -175,18 +199,22 @@ p.square(x, 3*y, legend="3*sin(x)", fill_color="white", line_color="green")
 p.legend.orientation = "bottom_left"
 
 show(p)
-	
-In [13]:
-# EXERCISE Create a plot of your own and add a legend
-Back to top
-This web site does not host notebooks, it only renders notebooks available on other websites.
+\end{verbatim}
+\end{framed}	
 
-Delivered by Fastly, Rendered by Rackspace
+\subsection{Exercise}
+Create a plot of your own and add a legend
 
-nbviewer GitHub repository.
-
-nbviewer version: 03d6df0
-
-IPython version: 4.0.0
-
-Rendered in a few seconds
+\end{document}
+%Back to top
+%This web site does not host notebooks, it only renders notebooks available on other websites.
+%
+%Delivered by Fastly, Rendered by Rackspace
+%
+%nbviewer GitHub repository.
+%
+%nbviewer version: 03d6df0
+%
+%IPython version: 4.0.0
+%
+%Rendered in a few seconds

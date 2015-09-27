@@ -11,6 +11,9 @@ from bokeh.plotting import figure
 In [2]:
 output_notebook()
 BokehJS successfully loaded.
+%===========================================================================================================%	
+
+
 Simple Layouts
 In order to add widgets or have multiple plots that are linked together, you must first be able to create documents taht contain these separate objects. In the upcoming 0.9.1 release (Jul 2015), it will be possible to easily accomplish this in your own custom templates using bokeh.embed.components. For now you, Bokeh provides simple layout capability for grid plots, VBoxes, and HBoxes (than can be nested).
 
@@ -46,6 +49,7 @@ In [5]:
 Linked Interactions
 It is possible to link various interactions between different Bokeh plots. For instance, the ranges of two (or more) plots can be linked, so that when one of the plots is panned (or zoomed, or otherwise has its range changed) the other plots will update in unison. It is also possible to link selections between two plots, so that when items are selected on one plot, the corresponding items on the second plot also become selected.
 
+%=========================================================================================================== %
 Linked panning
 Linked panning (when mulitple plots have ranges that stay in sync) is simple to spell with Bokeh. You simply share the approrpate range objects between two (or more) plots. The example below shows how to accomplish this by linking the ranges of three plots in various ways:
 
@@ -126,6 +130,8 @@ p.circle('x', 'y', size=20, source=source)
 
 show(p)
 inspect 	
+
+%=========================================================================================================== %
 Ipython Interactors
 It is possible to use native IPython notebook interactors together with Bokeh. In the interactor update function, the push_notebook method can be used to update a data source (presumably based on the iteractor widget values) to cause a plot to update.
 
@@ -177,6 +183,8 @@ foo:
 1
 In [20]:
 # EXERCISE: create and show a Select widget 
+
+%=========================================================================================================== %
 Callbacks for widgets
 Widgets that have values associated can have small JavaScript actions attached to them. These actions (also referred to as "callbacks") are executed whenever the widget's value is changed. In order to make it easier to refer to specific Bokeh models (e.g., a data source, or a glyhph) from JavaScript, the CustomJS obejct also accepts a dictionary of "args" that map names to Python Bokeh models. The corresponding JavaScript models are made available automaticaly to the CustomJS code.
 
@@ -213,6 +221,8 @@ show(layout)
 power:  
 1
  	
+
+%=========================================================================================================== %
 Calbacks for selections
 It's also possible to make JavaScript actions that execute whenever a user selection (e.g., box, point, lasso) changes. This is done by attaching the same kind of CustomJS object to whatever data source the selection is made on.
 
@@ -258,15 +268,6 @@ show(p)
 	
 In [ ]:
  
-Back to top
-This web site does not host notebooks, it only renders notebooks available on other websites.
-
-Delivered by Fastly, Rendered by Rackspace
-
-nbviewer GitHub repository.
-
-nbviewer version: 03d6df0
-
-IPython version: 4.0.0
-
-Rendered in a few seconds
+ %=========================================================================================================== %
+ 
+ \end{document}

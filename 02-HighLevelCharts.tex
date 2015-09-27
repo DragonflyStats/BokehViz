@@ -1,17 +1,29 @@
-nbviewer
-FAQ
-IPython
-Jupyter
-bokeh-notebooks   tutorial
+%nbviewer
+%FAQ
+%IPython
+%Jupyter
+%bokeh-notebooks   tutorial
 %===========================================================================================================%	
-Bokeh Tutorial — bokeh.charts interface
+\section{Bokeh Tutorial — \texttt{bokeh.charts} interface}
+\begin{framed}
+	\begin{verbatim}
 In [1]:
 import numpy as np
 import pandas as pd
 from bokeh.io import output_notebook, show
+\end{verbatim}
+\end{framed}
+%===========================================================================================================%	
+\begin{framed}
+\begin{verbatim}
 In [2]:
 output_notebook()
 BokehJS successfully loaded.
+\end{verbatim}
+\end{framed}
+%===========================================================================================================%	
+\begin{framed}
+	\begin{verbatim}
 In [3]:
 from bokeh.charts import Scatter
 from bokeh.sampledata.iris import flowers
@@ -30,7 +42,12 @@ TOOLS="resize,crosshair,pan,wheel_zoom,box_zoom,reset,previewsave"
 scatter = Scatter(xyvalues, tools=TOOLS, ylabel='petal_width')
 
 show(scatter)
-inspect 	
+inspect 
+\end{verbatim}
+\end{framed}
+%===========================================================================================================%	
+\begin{framed}
+\begin{verbatim}	
 In [4]:
 from bokeh.charts import Bar
 from bokeh.sampledata.olympics2014 import data
@@ -53,7 +70,11 @@ medals = pd.DataFrame(dict(bronze=bronze, silver=silver, gold=gold))
 bar = Bar(medals, countries, title="Stacked bars", stacked=True)
 
 show(bar)
-	
+\end{verbatim}
+\end{framed}
+%===========================================================================================================%	
+\begin{framed}
+\begin{verbatim}
 In [5]:
 from bokeh.charts import Histogram
 
@@ -71,4 +92,7 @@ show(hist)
 ERROR:/Users/bryan/anaconda/envs/bk092/lib/python3.4/site-packages/bokeh/validation/check.py:E-1000 (COLUMN_LENGTHS): ColumnDataSource column lengths are not all the same: ColumnDataSource, ViewModel:ColumnDataSource, ref _id: ec4ff74c-3a90-4ffc-be64-00b876c4df67
 	
 In [ ]:
- 
+\end{verbatim}
+\end{framed}
+%===========================================================================================================%	
+\end{document}

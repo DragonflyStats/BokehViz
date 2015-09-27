@@ -2,17 +2,20 @@
 
  
 
-Visualization with Bokeh
+\section{Visualization with Bokeh}
 
 Bokeh offers both powerful and flexible features which imparts simplicity and highly advanced customization. 
 
 
 
-It provides multiple visualization interfaces to the user as shown below:Bokeh_Interface
+It provides multiple visualization interfaces to the user as shown below:\texttt{Bokeh\_Interface}
 
-Charts: a high-level interface that is used to build complex statistical plots as quickly and in a simplistic manner.
-Plotting: an intermediate-level interface that is centered around composing visual glyphs.
-Models: a low-level interface that provides the maximum flexibility to application developers.
+
+\begin{description}
+\item[Charts:] a high-level interface that is used to build complex statistical plots as quickly and in a simplistic manner.
+\item[Plotting:] an intermediate-level interface that is centered around composing visual glyphs.
+\item[Models:] a low-level interface that provides the maximum flexibility to application developers.
+\end{description}
 In this article, we will look at first two interfaces charts & plotting only. 
 
 We will discuss models and other advance feature of this library in next post.
@@ -20,24 +23,30 @@ We will discuss models and other advance feature of this library in next post.
 
 %========================================================================% 
 
-Charts
+\section{Charts}
 
 As mentioned above, it is a high level interface used to present information in standard visualization form. 
 These forms include box plot, bar chart, area plot, heat map, donut chart and many others. You can generate these plots just by passing data frames, numpy arrays and dictionaries.
 
 Let’s look at the common methodology to create a chart:
 
-Import the library and functions/ methods
-Prepare the data
-Set the output mode (Notebook, Web Browser or Server)
-Create chart with styling option (if required)
-Visualize the chart
+\begin{itemize}
+\item Import the library and functions/ methods
+\item Prepare the data
+\item Set the output mode (Notebook, Web Browser or Server)
+\item Create chart with styling option (if required)
+\item Visualize the chart
+\end{itemize}
+
+
 To understand these steps better, let me demonstrate these steps using example below:
 
 Charts Example-1: Create a bar chart and visualize it on web browser using Bokeh
 
 We will follow above listed steps to create a chart:
 
+\begin{framed}
+\begin{verbatim}
 #Import library
 from bokeh.charts import Bar, output_file, show #use output_notebook to visualize it in notebook
 # prepare data (dummy data)
@@ -49,6 +58,8 @@ p = Bar(data, title="Line Chart Example", xlabel='x', ylabel='values', width=400
 # show the results
 show(p)
 Bar_Chart
+\end{verbatim}
+\end{framed}
 In the chart above,  you can see the tools at the top (zoom, resize, reset, wheel zoom) and these 
 tools allows you to interact with chart. 
 You can also look at the multiple chart options (legend, xlabel, ylabel, xgrid, width, height and many other) and 
@@ -63,23 +74,30 @@ Box plot on notebook
 To create this visualization, firstly, I’ll import the iris data set using sklearn library. Then, 
 follow the steps as discussed above to visualize chart in ipython notebook.
 
+\begin{framed}
+\begin{verbatim}
 #IRIS Data Set
+
 from sklearn.datasets import load_iris
 import pandas as pd
 iris = load_iris()
 df=pd.DataFrame(iris.data)
 df.columns=['petal_width','petal_length','sepal_width','sepal_length']
+
 #Import library
 from bokeh.charts import BoxPlot, output_notebook, show
 data=df[['petal_length','sepal_length']]
+
 # Output to Notebook
 output_notebook()
 # create a new line chat with a title and axis labels
 p = BoxPlot(data, width=400, height=400)
+
 # show the results
 show(p)
 Bokeh_Box_Plot
-
+\end{verbatim}
+\end{framed}
 %========================================================================%
  
 
@@ -88,18 +106,23 @@ Chart Example-3: Create a line plot to bokeh server
 Prior to plotting visualization to Bokeh server, you need to run it.
 
 If you are using a conda package, you can use run command bokeh-server from any directory 
-using command. Else, python ./bokeh-server command should work in general. For more detail on this 
+using command. Else, \texttt{python ./bokeh-server} command should work in general. For more detail on this 
 please refer this link “Deploying Bokeh Server“.
 
 There are multiple benefits of Plotting visualization on Bokeh server:
 
-Plots can be published to larger audience
-Visualize large data set interactively
-Streaming data to automatically updating plots
-Building dashboards and apps
+%================================================================== %
+\begin{itemize}
+\item Plots can be published to larger audience
+\item Visualize large data set interactively
+\item Streaming data to automatically updating plots
+\item Building dashboards and apps
+\end{itemize}
+%================================================================== %
 To start plotting on Bokeh server, I have executed the command bokeh-server to initialize it followed by 
 the commands used for visualization.
-
+\begin{framed}
+	\begin{verbatim}
 Bokeh_Server
 
 from bokeh.plotting import figure, output_server, show
@@ -109,3 +132,7 @@ p = figure(plot_width=400, plot_height=400)
 p.line([5, 2, 3, 4, 5], [5, 7, 2, 4, 5], line_width=2)
 show(p)
 Bokeh_Server_Visualization
+\end{verbatim}
+\end{framed}
+
+\end{document}
