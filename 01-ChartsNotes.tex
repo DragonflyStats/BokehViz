@@ -1,14 +1,36 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+%\setcounter{MaxMatrixCols}{10}
+
+\begin{document}
+	\large
 %%- http://www.analyticsvidhya.com/blog/2015/08/interactive-data-visualization-library-python-bokeh/
 
  
 
 \section{Visualization with Bokeh}
+\begin{itemize}
+\item Bokeh offers both powerful and flexible features which imparts simplicity and highly advanced customization. 
 
-Bokeh offers both powerful and flexible features which imparts simplicity and highly advanced customization. 
 
 
+\item It provides multiple visualization interfaces to the user as shown below:\texttt{Bokeh\_Interface}
+\end{itemize}
 
-It provides multiple visualization interfaces to the user as shown below:\texttt{Bokeh\_Interface}
 
 
 \begin{description}
@@ -16,12 +38,13 @@ It provides multiple visualization interfaces to the user as shown below:\texttt
 \item[Plotting:] an intermediate-level interface that is centered around composing visual glyphs.
 \item[Models:] a low-level interface that provides the maximum flexibility to application developers.
 \end{description}
-In this article, we will look at first two interfaces charts & plotting only. 
+In this article, we will look at first two interfaces charts and plotting only. 
 
 We will discuss models and other advance feature of this library in next post.
 
 
 %========================================================================% 
+\newpage
 
 \section{Charts}
 
@@ -38,40 +61,56 @@ Let’s look at the common methodology to create a chart:
 \item Visualize the chart
 \end{itemize}
 
+\newpage
 
 To understand these steps better, let me demonstrate these steps using example below:
 
-Charts Example-1: Create a bar chart and visualize it on web browser using Bokeh
+Charts Example-1: 
+
+Create a bar chart and visualize it on web browser using Bokeh
 
 We will follow above listed steps to create a chart:
 
 \begin{framed}
 \begin{verbatim}
 #Import library
-from bokeh.charts import Bar, output_file, show #use output_notebook to visualize it in notebook
+
+from bokeh.charts import Bar, output_file, show 
+#use output_notebook to visualize it in notebook
+
 # prepare data (dummy data)
 data = {"y": [1, 2, 3, 4, 5]}
+
 # Output to Line.HTML
-output_file("lines.html", title="line plot example") #put output_notebook() for notebook
+output_file("lines.html", title="line plot example") 
+
+#put output_notebook() for notebook
+
 # create a new line chat with a title and axis labels
-p = Bar(data, title="Line Chart Example", xlabel='x', ylabel='values', width=400, height=400)
+p = Bar(data, title="Line Chart Example", xlabel='x', 
+      ylabel='values', width=400, height=400)
+
 # show the results
 show(p)
-Bar_Chart
+
+% % % --- Bar_Chart
 \end{verbatim}
 \end{framed}
-In the chart above,  you can see the tools at the top (zoom, resize, reset, wheel zoom) and these 
+\begin{itemize}
+\item \textbf{Important:} In the chart above,  you can see the tools at the top (zoom, resize, reset, wheel zoom) and these 
 tools allows you to interact with chart. 
-You can also look at the multiple chart options (legend, xlabel, ylabel, xgrid, width, height and many other) and 
+\item You can also look at the multiple chart options (legend, xlabel, ylabel, xgrid, width, height and many other) and 
 various example of charts here.
+\end{itemize}
+
 
 
 %========================================================================% 
-
+\newpage
 Chart Example-2: Compare the distribution of sepal length and petal length of IRIS data set using 
 Box plot on notebook
 
-To create this visualization, firstly, I’ll import the iris data set using sklearn library. Then, 
+To create this visualization, firstly, I’ll import the iris data set using \textbf{\textit{sklearn library}}. Then, 
 follow the steps as discussed above to visualize chart in ipython notebook.
 
 \begin{framed}
@@ -81,6 +120,7 @@ follow the steps as discussed above to visualize chart in ipython notebook.
 from sklearn.datasets import load_iris
 import pandas as pd
 iris = load_iris()
+
 df=pd.DataFrame(iris.data)
 df.columns=['petal_width','petal_length','sepal_width','sepal_length']
 
@@ -90,6 +130,7 @@ data=df[['petal_length','sepal_length']]
 
 # Output to Notebook
 output_notebook()
+
 # create a new line chat with a title and axis labels
 p = BoxPlot(data, width=400, height=400)
 
@@ -99,7 +140,7 @@ Bokeh_Box_Plot
 \end{verbatim}
 \end{framed}
 %========================================================================%
- 
+\newpage
 
 Chart Example-3: Create a line plot to bokeh server
 
@@ -123,7 +164,7 @@ To start plotting on Bokeh server, I have executed the command bokeh-server to i
 the commands used for visualization.
 \begin{framed}
 	\begin{verbatim}
-Bokeh_Server
+### Bokeh_Server
 
 from bokeh.plotting import figure, output_server, show
 output_server("line")
@@ -131,7 +172,7 @@ p = figure(plot_width=400, plot_height=400)
 # add a line renderer
 p.line([5, 2, 3, 4, 5], [5, 7, 2, 4, 5], line_width=2)
 show(p)
-Bokeh_Server_Visualization
+% % % %---- Bokeh_Server_Visualization
 \end{verbatim}
 \end{framed}
 

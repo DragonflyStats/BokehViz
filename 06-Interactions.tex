@@ -1,3 +1,24 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+%\setcounter{MaxMatrixCols}{10}
+
+\begin{document}
+	\large
+	%%-
 nbviewer
 FAQ
 IPython
@@ -50,7 +71,7 @@ Linked Interactions
 It is possible to link various interactions between different Bokeh plots. For instance, the ranges of two (or more) plots can be linked, so that when one of the plots is panned (or zoomed, or otherwise has its range changed) the other plots will update in unison. It is also possible to link selections between two plots, so that when items are selected on one plot, the corresponding items on the second plot also become selected.
 
 %=========================================================================================================== %
-Linked panning
+\subsection{Linked panning}
 Linked panning (when mulitple plots have ranges that stay in sync) is simple to spell with Bokeh. You simply share the approrpate range objects between two (or more) plots. The example below shows how to accomplish this by linking the ranges of three plots in various ways:
 
 In [6]:
@@ -72,7 +93,8 @@ p = gridplot([[s1, s2, s3]], toolbar_location=None)
 show(p)
 In [7]:
 # EXERCISE: create two plots in a gridplot, and link their ranges
-Linked brushing
+%==================================================================== %
+\subsection{Linked brushing}
 Linking selections is accomplished in a similar way, by sharing data sources between plots. Note that normally with bokeh.plotting and bokeh.charts creating a default data source for simple plots is handled automatically. However to share a data source, we must create them by hand and pass them explicitly. This is illustrated in the example below:
 
 In [8]:
@@ -100,11 +122,14 @@ show(p)
  
 In [9]:
 # EXERCISE: create two plots in a gridplot, and link their data sources
-Hover Tools
+%========================================================== %
+\subsection{Hover Tools}
 Bokeh has a Hover Tool that allows additional information to be displayed in a popup whenever the uer howevers over a specific glyph. Basic hover tool configuration amounts to providing a list of (name, format) tuples. The full details can be found in the User's Guide here.
 
 The example below shows some basic usage of the Hover tool with a circle glyph:
 
+\begin{framed}
+\begin{verbatim}
 In [23]:
 from bokeh.models import HoverTool
 
@@ -130,15 +155,18 @@ p.circle('x', 'y', size=20, source=source)
 
 show(p)
 inspect 	
-
+\end{verbatim}
+\end{framed}
 %=========================================================================================================== %
-Ipython Interactors
-It is possible to use native IPython notebook interactors together with Bokeh. In the interactor update function, the push_notebook method can be used to update a data source (presumably based on the iteractor widget values) to cause a plot to update.
+\subsection{Ipython Interactors}
+It is possible to use native IPython notebook interactors together with Bokeh. In the interactor update function, the \texttt{push\_notebook} method can be used to update a data source (presumably based on the iteractor widget values) to cause a plot to update.
 
 Warning: The current implementation of push_notebook leaks memory. It is suitable for interactive exploration but not for long-running or streaming use cases. The problem will be resolved in future releases.
 
 The example below shows a "trig function" exporer using IPython interactors:
 
+\begin{framed}
+\begin{verbatim}
 In [10]:
 import numpy as np
 from bokeh.models import Line
@@ -148,8 +176,11 @@ y = np.sin(x)
 
 source = ColumnDataSource(data=dict(x=x, y=y))
 
-p = figure(title="simple line example", plot_height=300, plot_width=600, y_range=(-5, 5))
-p.line(x, y, color="#2222aa", alpha=0.5, line_width=2, source=source, name="foo")
+p = figure(title="simple line example", 
+     plot_height=300, plot_width=600, y_range=(-5, 5))
+     
+p.line(x, y, color="#2222aa", alpha=0.5, 
+     line_width=2, source=source, name="foo")
 
 def update(f, w=1, A=1, phi=0):
     if   f == "sin": func = np.sin
@@ -159,7 +190,9 @@ def update(f, w=1, A=1, phi=0):
     source.push_notebook()
 
 show(p)
-	
+\end{verbatim}
+\end{framed}
+%======================================================= %	
 In [11]:
 from ipywidgets import interact
 interact(update, f=["sin", "cos", "tan"], w=(0,10, 0.1), A=(0,5, 0.1), phi=(0, 10, 0.1))
@@ -167,7 +200,9 @@ None
 Out[11]:
 <function __main__.update>
 Bokeh Widgets and Callbacks
-Adding Widgets
+
+%======================================================== %
+\subsection{Adding Widgets}
 Bokeh supports direct integration with a small basic widget set. Thse can be used in conjunction with a Bokeh Server, or with CustomJS models to add more interactive capability to your documents. You can see a complete list, with example code in the Adding Widgets section of the User's Guide.
 
 To use the widgets, include them in a layout like you would a plot object:
@@ -185,7 +220,7 @@ In [20]:
 # EXERCISE: create and show a Select widget 
 
 %=========================================================================================================== %
-Callbacks for widgets
+\subsection{Callbacks for widgets}
 Widgets that have values associated can have small JavaScript actions attached to them. These actions (also referred to as "callbacks") are executed whenever the widget's value is changed. In order to make it easier to refer to specific Bokeh models (e.g., a data source, or a glyhph) from JavaScript, the CustomJS obejct also accepts a dictionary of "args" that map names to Python Bokeh models. The corresponding JavaScript models are made available automaticaly to the CustomJS code.
 
 And example below shows an action attached to a slider that updates a data source whenever the slider is moved:
@@ -223,11 +258,12 @@ power:
  	
 
 %=========================================================================================================== %
-Calbacks for selections
+\subsection{Calbacks for selections}
 It's also possible to make JavaScript actions that execute whenever a user selection (e.g., box, point, lasso) changes. This is done by attaching the same kind of CustomJS object to whatever data source the selection is made on.
 
 The example below is a bit more sophisticaed, and demonstrates updating one glyphs data source in response to another glyph's selection:
-
+\begin{framed}
+\begin{verbatim}
 In [13]:
 from random import random
 
@@ -266,7 +302,8 @@ s.callback = CustomJS(args=dict(s2=s2), code="""
 
 show(p)
 	
-In [ ]:
+\end{verbatim}
+\end{framed}
  
  %=========================================================================================================== %
  

@@ -1,4 +1,24 @@
-\section{Sample Data}
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+\setcounter{MaxMatrixCols}{10}
+
+\begin{document}
+\large
+	\section{Sample Data}
 %%- http://bokeh.pydata.org/en/latest/docs/installation.html
 
 
@@ -24,7 +44,7 @@ Finally, the location that the sample data is stored can be configured.
 By default, data is downloaded and stored to a directory \texttt{"HOME/.bokeh/data"}. 
 (The directory is created if it does not already exist.) 
 
-Bokeh looks for a YAML configuration file at "HOME/.bokeh/config". 
+Bokeh looks for a YAML configuration file at "\texttt{HOME/.bokeh/config}". 
 
 The YAML key \texttt{sampledata\_dir} can be set to the absolute path of a directory 
 where the data should be stored. For instance adding the following line to the config file:
@@ -33,7 +53,7 @@ where the data should be stored. For instance adding the following line to the c
 sampledata_dir: /tmp/bokeh_data
 \end{verbatim}
 \end{framed}
-will cause the sample data to be stored in /tmp/bokeh_data.
+will cause the sample data to be stored in \texttt{/tmp/bokeh\_data}.
 
 %---------------------------------------%
 \end{document}

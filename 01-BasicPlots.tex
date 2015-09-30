@@ -1,8 +1,28 @@
-nbviewer
-FAQ
-IPython
-Jupyter
-bokeh-notebooks   tutorial
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+\setcounter{MaxMatrixCols}{10}
+
+\begin{document}
+\large
+%nbviewer
+%FAQ
+%IPython
+%Jupyter
+%bokeh-notebooks   tutorial
  	
 \section{Bokeh Tutorial — bokeh.plotting interface}
 This section of the tutorial covers the bokeh.plotting interface. This interface is a "mid-level" interface, and the main idea can be described by the statement:
@@ -11,11 +31,15 @@ Starting from simple default figures (with default tools, grids and axes), add m
 We will see that it is possible to customize and change all of the defaults, but having them means that it is possible to get up and running very quickly.
 
 \subsection{Imports and Setup}
-When using the bokeh.plotting interface, there are a few common imports:
+When using the \texttt{bokeh.plotting} interface, there are a few common imports:
+\begin{itemize}
 
-Use the figure function to create new plot objects to work with.
-Call the functions \texttt{output\_file}, \texttt{output\_notebook}, and \texttt{output\_server} (possibly in combination) to tell Bokeh how to display or save output.
-Execute show and save to display or save plots and layouts.
+
+\item Use the figure function to create new plot objects to work with.
+\item Call the functions \texttt{output\_file}, \texttt{output\_notebook}, and \texttt{output\_server} (possibly in combination) to tell Bokeh how to display or save output.
+\item Execute show and save to display or save plots and layouts.
+\end{itemize}
+
 
 \begin{framed}
 \begin{verbatim}
@@ -24,7 +48,7 @@ from bokeh.io import output_notebook, show
 from bokeh.plotting import figure
 \end{verbatim}
 \end{framed}
-In this case, we are in the Jupyter notebook, so call output_notebook(). We only need to call this once, and all subsequent calls to show() will display inline in the notebook.
+In this case, we are in the Jupyter notebook, so call \texttt{output\_notebook()}. We only need to call this once, and all subsequent calls to \texttt{show()} will display inline in the notebook.
 \begin{framed}
 	\begin{verbatim}
 In [2]:
@@ -64,9 +88,9 @@ p.square([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=[10, 15, 20, 25, 30], color="fir
 show(p) # show the results
 \end{verbatim}
 \end{framed}
-Note that in the example above, we are also specifying different sizes for each individual marker. In general, all of a glyph's properties can be "vectorized" in this fashion. Also note that we have passed color as a shorthand to set both the line and fill colors easily at the same time. This is a convenience specific to bokeh.plotting.
+Note that in the example above, we are also specifying different sizes for each individual marker. In general, all of a glyph's properties can be "vectorized" in this fashion. Also note that we have passed color as a shorthand to set both the line and fill colors easily at the same time. This is a convenience specific to \texttt{bokeh.plotting}.
 
-</table>
+% </table>
 %================================================================ %
 There are many marker types available in Bokeh, you can see details and example plots for all of them in the reference guide by clicking on entries in the list below:
 \begin{framed}
@@ -101,7 +125,13 @@ p.line([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], line_width=2)
 show(p) # show the results
 \end{verbatim}
 \end{framed}
-Images
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/01-BasicPlot-LinePlot}
+\caption{}
+\label{fig:01-BasicPlot-LinePlot}
+\end{figure}
+
 The example below shows how to use the \texttt{image\_rgba} method to display raw RGBA data.
 
 Note: This example makes use of the NumPy library
@@ -132,8 +162,9 @@ show(p) # show the results
 \end{verbatim}
 \end{framed}
 %======================================================================================== %
+\newpage
 \section{Other Kinds of Glyphs}
-Bokeh supports many other kinds of glyphs. You can click on the User Guide links below to see how to create plots with these glyphs using the bokeh.plotting interface.
+Bokeh supports many other kinds of glyphs. You can click on the User Guide links below to see how to create plots with these glyphs using the \texttt{bokeh.plotting} interface.
 
 \begin{itemize}
 \item Rectangles and Ovals
@@ -161,12 +192,16 @@ p.line(x, y, line_width=2)
 p.circle(x, y, fill_color="white", size=8)
 
 show(p) # show the results
-	
-In [11]:
-# EXERCISE: create your own plot combining multiple glyphs together
-In [ ]:
+
 \end{verbatim}
 \end{framed}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/01-BasicPlot-LinePlot-2}
+\caption{}
+\label{fig:01-BasicPlot-LinePlot-2}
+\end{figure}
+
 \end{document} 
 %Back to top
 %This web site does not host notebooks, it only renders notebooks available on other websites.

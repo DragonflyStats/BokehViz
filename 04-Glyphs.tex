@@ -1,5 +1,25 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+%\setcounter{MaxMatrixCols}{10}
 
 \begin{document}
+	\large
+	%%-
+
 %=========================================================================================================== %
 \section{Glyphs}
 To style the fill, line, or text properties of a glyph, it is first necessary to obtain a specific \texttt{GlyphRenderer}. 
@@ -48,7 +68,7 @@ show(p)
 \end{framed}
 %=========================================================================================================== %
 \subsection{Selected \& Unselected Glyphs}
-The styling of selected and non-selected glyphs can be customized by setting the selection_glyph and/or nonselection_glyph attributes of the GlyphRenderer either manually or by passing them to add_glyph().
+The styling of selected and non-selected glyphs can be customized by setting the \texttt{selection\_glyph} and/or \texttt{nonselection\_glyph} attributes of the \texttt{GlyphRenderer} either manually or by passing them to \texttt{add\_glyph()}.
 
 \begin{framed}
 	\begin{verbatim}
@@ -58,11 +78,19 @@ from bokeh.models import Circle
 
 output_file("styling_selections.html")
 
-p = figure(plot_width=400, plot_height=400, tools="tap", title="Select a circle")
-p.circle([1, 2, 3, 4, 5], [2, 5, 8, 2, 7], size=50, name="mycircle")
+p = figure(plot_width=400, plot_height=400, 
+        tools="tap", title="Select a circle")
+        
+p.circle([1, 2, 3, 4, 5], [2, 5, 8, 2, 7], 
+        size=50, name="mycircle")
 
-selected_circle = Circle(fill_alpha=1, fill_color="firebrick", line_color=None)
-nonselected_circle = Circle(fill_alpha=0.2, fill_color="blue", line_color="firebrick")
+selected_circle = Circle(fill_alpha=1, 
+        fill_color="firebrick", 
+        line_color=None)
+        
+nonselected_circle = Circle(fill_alpha=0.2, 
+        fill_color="blue", 
+        line_color="firebrick")
 
 renderer = p.select(name="mycircle")
 renderer.selection_glyph = selected_circle
@@ -74,9 +102,12 @@ show(p)
 \end{framed}
 
 %=========================================================================================================== %	
-Click/Tap to select circles on the plot above to see the effect on the nonselected glyphs.
+\begin{itemize}
 
-Click in the plot, but not on a circle, to see their original state (this is set by the original call p.circle()).
+\item Click/Tap to select circles on the plot above to see the effect on the nonselected glyphs.
+
+\item Click in the plot, but not on a circle, to see their original state (this is set by the original call \texttt{p.circle()}).
+\end{itemize}
 
 The same could be achieved with the models interface as follows:
 
@@ -86,16 +117,21 @@ The same could be achieved with the models interface as follows:
 	\begin{verbatim}p = Plot()
 source = ColumnDataSource(dict(x=[1, 2, 3], y=[1, 2, 3]))
 
-initial_circle = Circle(x='x', y='y', fill_color='blue', size=50)
-selected_circle = Circle(fill_alpha=1, fill_color="firebrick", line_color=None)
-nonselected_circle = Circle(fill_alpha=0.2, fill_color="blue", line_color="firebrick")
+initial_circle = Circle(x='x', y='y', 
+			fill_color='blue', size=50)
+			
+selected_circle = Circle(fill_alpha=1, 
+			fill_color="firebrick", line_color=None)
+			
+nonselected_circle = Circle(fill_alpha=0.2, 
+			fill_color="blue", line_color="firebrick")
 
 p.add_glyph(
   source,
   initial_circle,
   selection_glyph=selected_circle,
   nonselection_glyph=nonselected_circle
-)
+ )
 \end{verbatim}
 \end{framed}
 %=========================================================================================================== %

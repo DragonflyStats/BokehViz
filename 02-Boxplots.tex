@@ -1,5 +1,23 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+\setcounter{MaxMatrixCols}{10}
+
 \begin{document}
-Box Plots
+\section{Box Plots}
 The BoxPlot can be used to summarize the statistical properties of different groups of data. The label specifies a column in the data to group by, and a box plot is generated for each group:
 \begin{framed}
 	\begin{verbatim}
@@ -59,8 +77,9 @@ output_file("boxplot.html")
 show(p)
 \end{verbatim}
 \end{framed}
+%====================================================================== %
 \subsection{Whisker Color}
-The color of the whiskers can be similary controlled using the whisker_color paramter. For a single color:
+The color of the whiskers can be similary controlled using the \texttt{whisker\_color} parameter. For a single color:
 \begin{framed}
 \begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
@@ -90,6 +109,7 @@ show(p)
 \end{verbatim}
 \end{framed}
 %==================================================================== %
+\newpage
 \subsection{Outliers}
 \begin{itemize}
 \item By default, BoxPlot charts show outliers above and below the whiskers. 
@@ -97,6 +117,7 @@ show(p)
 \end{itemize}
 
 
+\begin{framed}
 \begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
@@ -108,12 +129,13 @@ output_file("boxplot.html")
 
 show(p)
 \end{verbatim}
-
+\end{framed}
 
 %==================================================================== %
 \subsection{Markers}
 The marker used for displaying outliers is controlled by the marker parameter:
-
+\begin{framed}
+	\begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
 
@@ -123,7 +145,7 @@ title="MPG Summary (grouped by CYL, square marker)")
 output_file("boxplot.html")
 
 show(p)
-
-H
+\end{verbatim}
+\end{framed}
 
 \end{document}
