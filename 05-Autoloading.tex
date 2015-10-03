@@ -1,7 +1,26 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+\setcounter{MaxMatrixCols}{10}
+
+\begin{document}
 %=================================================================================================== %
 
 \section{Autoloading}
-Finally it is possible to ask Bokeh to return a <script> tag that will replace itself with a Bokeh plot, wherever happens to be located. The script will also check for \textbf{\textit{BokehJS}} and load it, if necessary, so it is possible to embed a plot by placing this script tag alone in your document.
+Finally it is possible to ask Bokeh to return a $<$\texttt{script}$>$ tag that will replace itself with a Bokeh plot, wherever happens to be located. The script will also check for \textbf{\textit{BokehJS}} and load it, if necessary, so it is possible to embed a plot by placing this script tag alone in your document.
 
 There are two cases:
 
@@ -10,7 +29,7 @@ There are two cases:
 \item Static Data
 \end{enumerate}
 \subsection{server data}
-The simplest case is to use the Bokeh server to persist your plot and data. Additionally, the Bokeh server affords the opportunity of animated plots or updating plots with streaming data. The \texttt{autoload\_server()} function accepts a plot object and a Bokeh server Session object. It returns a <script> tag that will load both your plot and data from the Bokeh server.
+The simplest case is to use the Bokeh server to persist your plot and data. Additionally, the Bokeh server affords the opportunity of animated plots or updating plots with streaming data. The \texttt{autoload\_server()} function accepts a plot object and a Bokeh server Session object. It returns a $<$\texttt{script}$>$ tag that will load both your plot and data from the Bokeh server.
 
 As a concrete example, here is some simple code using \texttt{autoload\_server()} with a default session:
 
@@ -36,7 +55,8 @@ push(session, document)
 script = autoload_server(plot, session)
 \end{verbatim}
 \end{framed}
-The resulting <script> tag that you can use to embed the plot inside a document looks like:
+\newpage
+The resulting $<$\texttt{script}$>$ tag that you can use to embed the plot inside a document looks like:
 \begin{framed}
 \begin{verbatim}
 <script
@@ -56,7 +76,7 @@ Note
 To execute the code above, a Bokeh server must be running.
 %======================================================================================== %
 \subsection{static data}
-If you do not need or want to use the Bokeh server, then the you can use the \texttt{autoload\_static()} function. This function takes the plot object you want to display together with a resources specification and path to load a script from. It will return a self-contained <script> tag, together with some JavaScript code that contains the data for your plot. This code should be saved to the script path you provided. The <script> tag will load this separate script to realize your plot.
+If you do not need or want to use the Bokeh server, then the you can use the \texttt{autoload\_static()} function. This function takes the plot object you want to display together with a resources specification and path to load a script from. It will return a self-contained $<$\texttt{script}$>$ tag, together with some JavaScript code that contains the data for your plot. This code should be saved to the script path you provided. The $<$\texttt{script}$>$ tag will load this separate script to realize your plot.
 
 Here is how you might use \texttt{autoload\_static()} with a simple plot:
 \begin{framed}
@@ -69,8 +89,12 @@ plot = figure()
 plot.circle([1,2], [3,4])
 
 js, tag = autoload_static(plot, CDN, "some/path")
-The resulting <script> tag looks like:
+\end{verbatim}
+\end{framed}
+The resulting $<$\texttt{script}$>$ tag looks like:
 
+\begin{framed}
+	\begin{verbatim}
 <script
     src="some/path"
     id="c5339dfd-a354-4e09-bba4-466f58a574f1"
@@ -82,10 +106,9 @@ The resulting <script> tag looks like:
 ></script>
 \end{verbatim}
 \end{framed}
-The resulting JavaScript code should be saved to a file that can be reached on the server at “some/path”, from the document that has the plot embedded.
+The resulting JavaScript code should be saved to a file that can be reached on the server at “\texttt{some/path}”, from the document that has the plot embedded.
 
-Note
-In both cases the <script> tag loads a <div> in place, so it must be placed under <head>.
+\noindent \textbf{Note}:In both cases the $<$\texttt{script}$>$ tag loads a $<$\texttt{div}$>$ in place, so it must be placed under $<$\texttt{head}$>$.
 
 
 \end{document}

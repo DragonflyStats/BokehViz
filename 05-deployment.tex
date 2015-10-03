@@ -1,29 +1,47 @@
-nbviewer
-FAQ
-IPython
-Jupyter
-bokeh-notebooks   tutorial
- 	
-Bokeh Tutorial — Sharing and Embedding
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+\setcounter{MaxMatrixCols}{10}
+
+\begin{document}
+\section{Bokeh Tutorial — Sharing and Embedding}
 %=============================================================== %
-\section{Creating a Plot to Share}
+\subsection{Creating a Plot to Share}
+\begin{framed}
 \begin{verbatim}
-In [1]:
 import pandas as pd
 from bokeh.plotting import figure
 
 AAPL = pd.read_csv(
 "http://ichart.yahoo.com/table.csv?s=AAPL&a=0&b=1&c=2000&d=0&e=1&f=2015",
 parse_dates=['Date'])
+
 MSFT = pd.read_csv(
 "http://ichart.yahoo.com/table.csv?s=MSFT&a=0&b=1&c=2000&d=0&e=1&f=2015",
 parse_dates=['Date'])
+
 IBM = pd.read_csv(
 "http://ichart.yahoo.com/table.csv?s=IBM&a=0&b=1&c=2000&d=0&e=1&f=2015",
 parse_dates=['Date'])
 \end{verbatim}
+\end{framed}
 
-\begin{verbatim}
+%================================================= %
+\begin{framed}
+	\begin{verbatim}
 def make_figure():
 p = figure(x_axis_type="datetime", width=700, height=300)
 
@@ -38,6 +56,7 @@ p.yaxis.axis_label = 'Price'
 p.legend.orientation = "top_left"
 return p
 \end{verbatim}
+\end{framed}
 
 Embed functions all look for a Plot object. Common plot objects are:
 
@@ -47,18 +66,22 @@ Chart from charts
 vplot, hplot from plotting
 Displaying in the Notebook
 
+\begin{framed}
 \begin{verbatim}
 In [2]:
 from bokeh.io import output_notebook, show
 In [3]:
 output_notebook()
 \end{verbatim}
+\end{framed}
 BokehJS successfully loaded.
+\begin{framed}
 \begin{verbatim}
 In [4]:
 p = make_figure()
 show(p)
 \end{verbatim}
+\end{framed}
 Saving to an HTML File
 \begin{verbatim}
 In [5]:
@@ -126,16 +149,16 @@ In [ ]:
  
  {{ div }}
 \end{verbatim}
-Back to top
-This web site does not host notebooks, it only renders notebooks available on other websites.
-
-Delivered by Fastly, Rendered by Rackspace
-
-nbviewer GitHub repository.
-
-nbviewer version: 03d6df0
-
-IPython version: 4.0.0
-
-Rendered (Sat, 26 Sep 2015 17:34:18 UTC)
+%Back to top
+%This web site does not host notebooks, it only renders notebooks available on other websites.
+%
+%Delivered by Fastly, Rendered by Rackspace
+%
+%nbviewer GitHub repository.
+%
+%nbviewer version: 03d6df0
+%
+%IPython version: 4.0.0
+%
+%Rendered (Sat, 26 Sep 2015 17:34:18 UTC)
 \end{document}
