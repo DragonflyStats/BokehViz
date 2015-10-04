@@ -24,11 +24,15 @@
 %Jupyter
 %bokeh-notebooks   tutorial
  	
-\section{Bokeh Tutorial — bokeh.plotting interface}
-This section of the tutorial covers the bokeh.plotting interface. This interface is a "mid-level" interface, and the main idea can be described by the statement:
+\section{Bokeh Tutorial — \texttt{bokeh.plotting} interface}
+\begin{itemize}
+\item This section of the tutorial covers the \texttt{bokeh.plotting} interface. 
+\item This interface is a "mid-level" interface, and the main idea can be described by the statement:
 
-Starting from simple default figures (with default tools, grids and axes), add markers and other shapes whose visual attributes are tied to data.
-We will see that it is possible to customize and change all of the defaults, but having them means that it is possible to get up and running very quickly.
+\item Starting from simple default figures (with default tools, grids and axes), add markers and other shapes whose visual attributes are tied to data.
+\item We will see that it is possible to customize and change all of the defaults, but having them means that it is possible to get up and running very quickly.
+\end{itemize}
+
 
 \subsection{Imports and Setup}
 When using the \texttt{bokeh.plotting} interface, there are a few common imports:
@@ -49,13 +53,13 @@ from bokeh.plotting import figure
 \end{verbatim}
 \end{framed}
 In this case, we are in the Jupyter notebook, so call \texttt{output\_notebook()}. We only need to call this once, and all subsequent calls to \texttt{show()} will display inline in the notebook.
-\begin{framed}
-	\begin{verbatim}
-In [2]:
-output_notebook()
-BokehJS successfully loaded.
-\end{verbatim}
-\end{framed}
+%\begin{framed}
+%	\begin{verbatim}
+%In [2]:
+%output_notebook()
+%BokehJS successfully loaded.
+%\end{verbatim}
+%\end{framed}
 \subsection{Some Basic Scatter Plots}
 In this section you will see how to use Bokeh's various marker types to create simple scatter plots.
 \begin{framed}
@@ -72,13 +76,18 @@ show(p) # show the results
 \end{framed}
 All Bokeh markers accept size (measured in screen space units) as a property. Circles also have radius (measured in "data" space units).
 
-\begin{framed}
-\begin{verbatim}
-In [4]:
-# EXERCISE: Try changing the example above to set a `radius` value instead of `size`
+
+\begin{itemize}
+\item \textbf{EXERCISE:} Try changing the example above to set a `radius` value instead of `size`
+\end{itemize}
+
+
 To scatter square markers instead of circles, you can use the square method on figures.
 
-In [5]:
+
+\begin{framed}
+\begin{verbatim}
+
 # create a new plot using figure
 p = figure(plot_width=400, plot_height=400)
 
@@ -114,10 +123,17 @@ x()
 	\begin{verbatim}
 In [6]:
 # EXERCISE: Plot some different markers in this cell
-Basic Line Plots
-In [7]:
+
+\end{verbatim}
+\end{framed}
+\newpage
+\subsection{Basic Line Plots}
+\begin{framed}
+	\begin{verbatim}
+
 # create a new plot (with a title) using figure
-p = figure(plot_width=400, plot_height=400, title="My Line Plot")
+p = figure(plot_width=400, plot_height=400, 
+     title="My Line Plot")
 
 # add a line renderer
 p.line([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], line_width=2)
@@ -128,8 +144,6 @@ show(p) # show the results
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/01-BasicPlot-LinePlot}
-\caption{}
-\label{fig:01-BasicPlot-LinePlot}
 \end{figure}
 
 The example below shows how to use the \texttt{image\_rgba} method to display raw RGBA data.
@@ -156,7 +170,8 @@ for i in range(N):
 p = figure(x_range=[0,10], y_range=[0,10])
 
 # add an RGBA image renderer
-p.image_rgba(image=[img], x=[0], y=[0], dw=[10], dh=[10])
+p.image_rgba(image=[img], x=[0], y=[0], 
+     dw=[10], dh=[10])
 
 show(p) # show the results
 \end{verbatim}
@@ -198,8 +213,6 @@ show(p) # show the results
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/01-BasicPlot-LinePlot-2}
-\caption{}
-\label{fig:01-BasicPlot-LinePlot-2}
 \end{figure}
 
 \end{document} 
