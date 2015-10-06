@@ -1,0 +1,74 @@
+\section{Title}
+The styling of the plot title is controlled by a set of Text Properties on the Plot, that are prefixed with title_. For instance, to set the color of the title text, use title_text_color:
+
+from bokeh.plotting import figure, output_file, show
+
+output_file("title.html")
+
+# create a new plot with a title
+p = figure(plot_width=400, plot_height=400, title="Some Title")
+p.title_text_color = "olive"
+p.title_text_font = "times"
+p.title_text_font_style = "italic"
+
+p.circle([1, 2, 3, 4, 5], [2, 5, 8, 2, 7], size=10)
+
+show(p)
+	
+\section{Background}
+The background fill color is controlled by the background_fill property of the Plot object:
+
+from bokeh.plotting import figure, output_file, show
+
+output_file("background.html")
+
+# create a new plot with a title
+p = figure(plot_width=400, plot_height=400)
+p.background_fill = "beige"
+
+p.circle([1, 2, 3, 4, 5], [2, 5, 8, 2, 7], size=10)
+
+show(p)
+	\section{Border}
+The border fill color is controlled by the border_fill property of the Plot object. You can also set the minimum border on each side (in screen units) with the properties
+
+min_border_left
+
+min_border_right
+
+min_border_top
+
+min_border_bottom
+
+Additionally, setting min_border will apply a minimum border setting to all sides as a convenience. The min_border default value is 40px.
+
+from bokeh.plotting import figure, output_file, show
+
+output_file("border.html")
+
+# create a new plot with a title
+p = figure(plot_width=400, plot_height=400)
+p.border_fill = "whitesmoke"
+p.min_border_left = 80
+
+p.circle([1,2,3,4,5], [2,5,8,2,7], size=10)
+
+show(p)
+	
+\section{Outline}
+The styling of the outline of the plotting area is controlled by a set of Line Properties on the Plot, that are prefixed with outline_. For instance, to set the color of the outline, use outline_line_color:
+
+from bokeh.plotting import figure, output_file, show
+
+output_file("outline.html")
+
+# create a new plot with a title
+p = figure(plot_width=400, plot_height=400)
+p.outline_line_width = 7
+p.outline_line_alpha = 0.3
+p.outline_line_color = "navy"
+
+p.circle([1,2,3,4,5], [2,5,8,2,7], size=10)
+
+show(p)
+	

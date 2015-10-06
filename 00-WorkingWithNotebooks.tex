@@ -1,0 +1,27 @@
+Working in the Notebook
+
+Displaying Inline Plots
+Connecting to Bokeh Server Plots
+Integrating IPython Interactors
+%============================================== %
+Displaying Inline Plots
+To display Bokeh plots inline in an IPython/Jupyter notebook, use the output_notebook() function from bokeh.io instead of (or in addition to) the output_file() function we have seen previously. No other modifications are required. You can see an example below:
+
+../../_images/notebook_inline.png
+Note
+As a convenience, output_notebook() is also importable from the bokeh.charts and bokeh.plotting modules.
+%================================================ %
+
+Connecting to Bokeh Server Plots
+
+%================================================= %
+Integrating IPython Interactors
+It is possible to drive updates to Bokeh plots using IPython/Jupyter notebook widgets, known as interactors. The key doing this is the push_notebook() method on ColumnDataSource. This method allows you to update plot data sources in the notebook, so that the plot is made to update. Typically, push_notebook() is used in the update callback for the interactor. An example is shown below:
+
+../../_images/notebook_interactors.png
+%=================================================== %
+\end{document}
+Prev | Next | Back to top 
+Source
+© Copyright 2013, Continuum Analytics.
+Created using Sphinx 1.3.1.
