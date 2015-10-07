@@ -60,43 +60,46 @@ return p
 
 Embed functions all look for a Plot object. Common plot objects are:
 
-Plot from models
-figure from plotting
-Chart from charts
-vplot, hplot from plotting
-Displaying in the Notebook
+\begin{itemize}
+\item Plot from \texttt{models}
+\item figure from \texttt{plotting}
+\item Chart from \texttt{charts}
+\item vplot, hplot from \texttt{plotting}
+\end{itemize}
+\subsection{Displaying in the Notebook}
 
 \begin{framed}
 \begin{verbatim}
-In [2]:
 from bokeh.io import output_notebook, show
-In [3]:
+
 output_notebook()
+
+# BokehJS successfully loaded.
 \end{verbatim}
 \end{framed}
-BokehJS successfully loaded.
+
 \begin{framed}
 \begin{verbatim}
-In [4]:
 p = make_figure()
 show(p)
 \end{verbatim}
 \end{framed}
-Saving to an HTML File
+\subsection{Saving to an HTML File}
+\begin{framed}
 \begin{verbatim}
-In [5]:
 from bokeh.io import output_file, show
-In [6]:
-output_file("tutorial_sharing.html")
-In [7]:
+output_file("newfilename.html")
 p = make_figure()
-show(p)   # save(p) will save without opening a new browser tab
+show(p)   
 \end{verbatim}
-
-Templating in HTML Documents
+\end{framed}
+\texttt{save(p)} will save without opening a new browser tab
+\newpage
+\subsection{Templating in HTML Documents}
 In [8]:
 import jinja2
 from bokeh.embed import components
+\begin{framed}
 \begin{verbatim}
 </body>
 
@@ -110,10 +113,14 @@ from IPython.display import HTML
 HTML(template.render(script=script, div=div))
 Out[11]:
 Hello Bokeh!
+\end{verbatim}
+\end{framed}
 Below is a simple plot of stock closing prices
 
 	
-In [12]:
+\begin{framed}
+\begin{verbatim}
+
 from flask import Flask
 app = Flask(__name__)
 
@@ -123,10 +130,13 @@ def hello_bokeh():
 In [13]:
 # Uncomment to run the Flask Server. Use Kernel -> Interrupt from Notebook menubar to stop 
 #app.run(port=5050)
-In [14]:
-# EXERCISE: Create your own template (or modify the one above) 
-In [ ]:
- In [9]:
+\end{verbatim}
+\end{framed}
+\subsection{EXERCISE: } Create your own template (or modify the one above) 
+
+%=================================== %
+\begin{framed}
+ \begin{verbatim}
  template = jinja2.Template("""
  <!DOCTYPE html>
  <html lang="en-US">
@@ -149,6 +159,7 @@ In [ ]:
  
  {{ div }}
 \end{verbatim}
+\end{framed}
 %Back to top
 %This web site does not host notebooks, it only renders notebooks available on other websites.
 %

@@ -1,48 +1,74 @@
-nbviewer
-FAQ
-IPython
-Jupyter
-bokeh-notebooks   tutorial
- 	
-Bokeh Tutorial — Styling and Appearance
-In [1]:
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{chngpage}
+%\usepackage{bigints}
+
+%\setcounter{MaxMatrixCols}{10}
+
+\begin{document}
+	\large
+	
+\section*{Bokeh Tutorial — Styling and Appearance}
+
+\subsection*{Preliminaraies}
+\begin{framed}
+\begin{verbatim}
 from bokeh.io import output_notebook, show
 from bokeh.plotting import figure
-In [2]:
-output_notebook()
-BokehJS successfully loaded.
-Colors
-%===================================================================== %
-There are many places where you may need to specify colors. Bokeh can accept colors in a variety of different ways:
 
-any of the 147 named CSS colors, e.g 'green', 'indigo'
-an RGB(A) hex value, e.g., '#FF0000', '#44444444'
-a 3-tuple of integers (r,g,b) between 0 and 255
-a 4-tuple of (r,g,b,a) where r, g, b are integers between 0 and 255 and a is a floating point value between 0 and 1
+output_notebook()
+# BokehJS successfully loaded.
+\end{verbatim}
+\end{framed}
+
+%===================================================================== %
+
+\subsection{Colours}
+There are many places where you may need to specify colors. Bokeh can accept colors in a variety of different ways:
+\begin{enumerate}
+\item any of the 147 named CSS colours, e.g 'green', 'indigo'
+\item an \textit{\textbf{RGB(A)}} hex value, e.g., '$\#FF0000$', '$\#44FF66$'
+\item a 3-tuple of integers (r,g,b) between 0 and 255
+\item a 4-tuple of (r,g,b,a) where r, g, b are integers between 0 and 255 and a is a floating point value between 0 and 1
+\end{enumerate}
+
 %============================================================= %
-\section{Properties}
+\subsection{Properties}
 Regardless of what API (models, plotting, or charts) is used to create a Bokeh plot, styling the visual aspects of the plot can always be accomplished by setting attributes on the Bokeh model objects that comprise the resulting plot. Visual properties come in three kinds: line, fill, and text properties. 
 % For full information with code and examples see the Styling Visual Properties section of the user guide.
 
 
-\subsection{Line Properties}
+\subsubsection{Line Properties}
 Set the visual appearance of lines. The most common are \texttt{line\_color}, \texttt{line\_alpha}, \texttt{line\_width} and \texttt{line\_dash}.
 
-\subsection{Fill Properties}
+\subsubsection{Fill Properties}
 Set the visual appearance of filled areas: \texttt{fill\_color} and \texttt{fill\_alpha}.
 
-\subsection{Text Properties}
-Set the visual appearance of lines of text. The most common are text_font, text_font_size, text_color, and text_alpha.
+\subsubsection{Text Properties}
+Set the visual appearance of lines of text. The most common are \texttt{text\_font}, \texttt{text\_font\_size}, text\_color, and \texttt{text\_alpha}.
 
-Sometimes a prefix is used with property names, e.g. to distinguish between different line properties on the same object, or to give a more meaningful name. For example, to set the line width of the plot outline, you would say myplot.outline_line_width = 2.
+Sometimes a prefix is used with property names, e.g. to distinguish between different line properties on the same object, or to give a more meaningful name. 
+
+For example, to set the line width of the plot outline, you would say \texttt{myplot.outline\_line\_width = 2}.
 %================================================================================================= %
 \subsection{Plots}
 Many top-level attributes of plots (outline, border, etc.) can be configured. See the Plots section of the styling guide for full information.
 
 Here is an example that tweaks the plot outline:
 
+\begin{framed}
 \begin{verbatim}
-In [3]:
 # create a new plot with a title
 p = figure(plot_width=400, plot_height=400)
 p.outline_line_width = 7
@@ -54,10 +80,16 @@ p.circle([1,2,3,4,5], [2,5,8,2,7], size=10)
 show(p)
 	
 \end{verbatim}
+\end{framed}
 
-In [4]:
-# EXERCISE Create a plot of your own and customize several plot-level properties
-Axes
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/04-plotoutline-01}
+\end{figure}
+
+\subsection*{EXERCISE}Create a plot of your own and customize several plot-level properties
+
+% Axes
 
 
 \subsection{Axes}
@@ -71,13 +103,15 @@ To style axes, you first must get ahold of Axis objects. The simplest way is to 
 \end{verbatim}
 \end{framed}
 However, you can set properties on all the elements of the list as if it was a single object:
-
+\begin{framed}
+	\begin{verbatim}
 p.xaxis.axis_label = "Temperature"
 p.axis.major_label_text_color = "orange"
+\end{verbatim}
+\end{framed}
 These are referred to as "splattable" lists, and tab completion works on them as well.
 
-In [5]:
-# EXERCISE Try out tab completion. Type p.xaxis.<press tab key> to see a list of attributes that can be set.
+Try out tab completion. Type p.xaxis.<press tab key> to see a list of attributes that can be set.
 \begin{framed}
 \begin{verbatim}
 axis
@@ -115,7 +149,6 @@ show(p)
 The next example shows customizations on several of the different Axis properties at once:
 \begin{framed}
 	\begin{verbatim}
-In [7]:
 p = figure(plot_width=400, plot_height=400)
 p.asterisk([1,2,3,4,5], [2,5,8,2,7], size=12, color="olive")
 
@@ -136,21 +169,22 @@ p.axis.minor_tick_out = 6
 show(p)
 \end{verbatim}
 \end{framed}	
-In [8]:
-# EXERCISE Create a plot of your own and customize several axis properties
-There are further customizations possible. See the User Guide for more information on topics such as tick label formatting or limiting axis bounds.
-
-\subsection{Grids}
+%In [8]:
+\subsection*{EXERCISE} 
+Create a plot of your own and customize several axis properties
+%There are further customizations possible. See the User Guide for more information on topics such as tick label formatting or limiting axis bounds.
 
 %======================================================================================== %
+\subsection{Grids}
 
-Grids
+
+
+
 \begin{framed}
 \begin{verbatim}
 # grid line properties
 # band fill properties
 
-In [9]:
 p = figure(plot_width=400, plot_height=400)
 p.circle([1,2,3,4,5], [2,5,8,2,7], size=10)
 
@@ -163,6 +197,12 @@ p.ygrid.grid_line_dash = [6, 4]
 
 show(p)
 \end{verbatim}
+\end{framed}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/04-grids-01}
+\end{figure}
+
 \begin{framed}
 	\begin{verbatim}
 In [10]:
@@ -178,12 +218,16 @@ p.ygrid.band_fill_color = "navy"
 
 show(p)
 \end{verbatim}
-
 \end{framed}
-# EXERCISE Create a plot of your own and customize several grid properties
-Legends
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/04-grids-01}
+\end{figure}
+\subsection*{EXERCISE} Create a plot of your own and customize several grid properties.
+
 %===================================================================================== %
-\subsection{Legends}
+\newpage
+\subsection*{Legends}
 
 \begin{framed}
 \begin{verbatim}
@@ -208,8 +252,12 @@ p.legend.orientation = "bottom_left"
 show(p)
 \end{verbatim}
 \end{framed}	
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/04-legends-01}
+\end{figure}
 
-\subsection{Exercise}
+\subsection*{Exercise}
 Create a plot of your own and add a legend
 
 \end{document}

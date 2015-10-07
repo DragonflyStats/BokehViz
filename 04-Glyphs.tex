@@ -21,10 +21,20 @@
 	%%-
 
 %=========================================================================================================== %
-\section{Glyphs}
-To style the fill, line, or text properties of a glyph, it is first necessary to obtain a specific \texttt{GlyphRenderer}. 
+\section*{Glyphs}
+\begin{framed}
+\noindent In the context of data visualization, a glyph is any marker, such as an arrow or similar marking, used to specify part of a scientific visualization. This is a representation to visualize data where the data set is presented as a collection of visual objects. These visual objects are collectively called a Glyph.
+\end{framed}
+Glyphs are the basic visual building blocks of Bokeh plots, e.g. lines, rectangles, squares, wedges, patches, etc. The \texttt{bokeh.plotting} interface provides a convenient way to create plots centered around glyphs.
 
+\bigskip
+\begin{itemize}
+\item To style the fill, line, or text properties of a glyph, it is first necessary to obtain a specific \texttt{GlyphRenderer}. 
+
+\item 
 When using the \texttt{bokeh.plotting} interface, the glyph functions return the renderer:
+\end{itemize}
+
 
 \begin{framed}
 \begin{verbatim}
@@ -45,7 +55,8 @@ Then, the glyph itself is obtained from the \texttt{.glyph} attribute of a \text
 <bokeh.models.markers.Circle at 0x10799ba10>
 \end{verbatim}
 \end{framed}
-This is the object to set fill, line, or text property values for:
+\newpage
+% This is the object to set fill, line, or text property values for:
 
 \begin{framed}
 \begin{verbatim}
@@ -55,7 +66,16 @@ output_file("axes.html")
 
 p = figure(plot_width=400, plot_height=400)
 r = p.circle([1,2,3,4,5], [2,5,8,2,7])
-
+show(p)
+\end{verbatim}
+\end{framed}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/04-glyphs-01}
+\end{figure}
+\newpage
+\begin{framed}
+	\begin{verbatim}
 glyph = r.glyph
 glyph.size = 60
 glyph.fill_alpha = 0.2
@@ -66,8 +86,14 @@ glyph.line_width = 2
 show(p)
 \end{verbatim}
 \end{framed}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/04-glyphs-02}
+\end{figure}
 %=========================================================================================================== %
-\subsection{Selected \& Unselected Glyphs}
+\newpage
+
+\subsection*{Selected \& Unselected Glyphs}
 The styling of selected and non-selected glyphs can be customized by setting the \texttt{selection\_glyph} and/or \texttt{nonselection\_glyph} attributes of the \texttt{GlyphRenderer} either manually or by passing them to \texttt{add\_glyph()}.
 
 \begin{framed}
@@ -135,9 +161,9 @@ p.add_glyph(
 \end{verbatim}
 \end{framed}
 %=========================================================================================================== %
-\subsection{Notes}
+\subsection*{Notes}
 \begin{itemize}
-\item Only the visual properties of \texttt{selection\_glyph} and \texttt{nonselection\_glyph} are considered when renderering. 
+\item Only the visual properties of \texttt{selection\_glyph} and \texttt{nonselection\_glyph} are considered when rendering. 
 \item Changing positions, sizes, etc. will have no effect.
 \end{itemize}
 
