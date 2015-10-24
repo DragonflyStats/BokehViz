@@ -17,12 +17,12 @@
 %\setcounter{MaxMatrixCols}{10}
 
 \begin{document}
-	\large
+	\Large
 %%- http://www.analyticsvidhya.com/blog/2015/08/interactive-data-visualization-library-python-bokeh/
 
  
 
-\section{Visualization with Bokeh}
+\section*{Visualization with Bokeh}
 \begin{itemize}
 \item Bokeh offers both powerful and flexible features which imparts simplicity and highly advanced customization. 
 
@@ -38,15 +38,15 @@
 \item[Plotting:] an intermediate-level interface that is centered around composing visual glyphs.
 \item[Models:] a low-level interface that provides the maximum flexibility to application developers.
 \end{description}
-In this article, we will look at first two interfaces charts and plotting only. 
-
-We will discuss models and other advance feature of this library in next post.
+%In this article, we will look at first two interfaces charts and plotting only. 
+%
+%We will discuss models and other advance feature of this library in next post.
 
 
 %========================================================================% 
 \newpage
 
-\section{Charts}
+\section*{Charts}
 
 As mentioned above, it is a high level interface used to present information in standard visualization form. 
 These forms include box plot, bar chart, area plot, heat map, donut chart and many others. You can generate these plots just by passing data frames, numpy arrays and dictionaries.
@@ -61,17 +61,18 @@ Let’s look at the common methodology to create a chart:
 \item Visualize the chart
 \end{itemize}
 
+%\newpage
+%
+%To understand these steps better, let me demonstrate these steps using example below:
+%
+%Charts Example-1: 
+%
+%Create a bar chart and visualize it on web browser using Bokeh
+%
+%We will follow above listed steps to create a chart:
+
 \newpage
 
-To understand these steps better, let me demonstrate these steps using example below:
-
-Charts Example-1: 
-
-Create a bar chart and visualize it on web browser using Bokeh
-
-We will follow above listed steps to create a chart:
-
-\begin{framed}
 \begin{verbatim}
 #Import library
 
@@ -92,10 +93,9 @@ p = Bar(data, title="Line Chart Example", xlabel='x',
 
 # show the results
 show(p)
-
-% % % --- Bar_Chart
 \end{verbatim}
-\end{framed}
+
+\newpage
 \begin{itemize}
 \item \textbf{Important:} In the chart above,  you can see the tools at the top (zoom, resize, reset, wheel zoom) and these 
 tools allows you to interact with chart. 
@@ -106,14 +106,21 @@ various example of charts here.
 
 
 %========================================================================% 
-\newpage
-Chart Example-2: Compare the distribution of sepal length and petal length of IRIS data set using 
+
+\section*{Chart Example 2: }
+\begin{itemize}
+\item Compare the distribution of sepal length and petal length of IRIS data set using 
 Box plot on notebook
 
-To create this visualization, firstly, I’ll import the iris data set using \textbf{\textit{sklearn library}}. Then, 
+\item To create this visualization, we can import the iris data set using \textbf{\textit{sklearn library}}. 
+\item Then, 
 follow the steps as discussed above to visualize chart in ipython notebook.
 
-\begin{framed}
+\end{itemize}
+
+\newpage
+
+
 \begin{verbatim}
 #IRIS Data Set
 
@@ -122,10 +129,12 @@ import pandas as pd
 iris = load_iris()
 
 df=pd.DataFrame(iris.data)
-df.columns=['petal_width','petal_length','sepal_width','sepal_length']
+df.columns=['petal_width','petal_length',
+  'sepal_width','sepal_length']
 
 #Import library
-from bokeh.charts import BoxPlot, output_notebook, show
+from bokeh.charts import BoxPlot,   
+output_notebook, show
 data=df[['petal_length','sepal_length']]
 
 # Output to Notebook
@@ -138,7 +147,7 @@ p = BoxPlot(data, width=400, height=400)
 show(p)
 Bokeh_Box_Plot
 \end{verbatim}
-\end{framed}
+
 %========================================================================%
 \newpage
 

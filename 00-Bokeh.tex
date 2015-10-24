@@ -34,21 +34,36 @@ Bokeh is a Python interactive visualization library for large datasets that nati
 graphics in the style of Protovis/D3, while delivering high-performance interactivity over large data to thin clients.
 
 \end{quote}
+\newpage
+\begin{itemize}
+\item Bokeh is developed by \textbf{Continuum Analytics}.
+\end{itemize}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.7\linewidth]{images/00-continuum-projects}
+\includegraphics[width=1.0\linewidth]{images/continuum}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\linewidth]{images/00-continuum-projects}
 \end{figure}
 \newpage
 \section*{Bokeh scales visualization to Big Data}
+\textit{(From Bokeh Documentation)}
+\begin{itemize}
+\item Interactive and real-time streaming visualization framework that scales to Big Data with data shading
 
-Interactive and real-time streaming visualization framework that scales to Big Data with data shading
+\item Bokeh is a Python data visualization library combining the ideas of the \textbf{Grammar of Graphics} and \textbf{Protovis}, with enhancements to support interactive visualization. Its primary output backend is HTML5 Canvas.
 
-Bokeh is a Python data visualization library combining the ideas of the Grammar of Graphics and Protovis, with enhancements to support interactive visualization. Its primary output backend is HTML5 Canvas.
+\item There are many excellent plotting packages for Python, but they generally do not optimize for the particular needs of statistical plotting or multidimensional datasets. 
+\item Additionally, advanced visual customization is typically difficult for non-programmers, and most libraries do not build a reified data processing pipeline that supports rich interactivity like linked brushing. 
+\item Bokeh addresses these problems at their core by using a declarative data transformation scheme, and is engineered to operate in a client/server model for the modern web.
 
-There are many excellent plotting packages for Python, but they generally do not optimize for the particular needs of statistical plotting or multidimensional datasets. Additionally, advanced visual customization is typically difficult for non-programmers, and most libraries do not build a reified data processing pipeline that supports rich interactivity like linked brushing. Bokeh addresses these problems at their core by using a declarative data transformation scheme, and is engineered to operate in a client/server model for the modern web.
 
+\item Bokeh can produce elegant and interactive visualization like D3.js with high-performance interactivity over very large or streaming datasets. Bokeh can help anyone who would like to quickly and easily create interactive plots, dashboards, and data applications.
+\end{itemize}
 
-Bokeh can produce elegant and interactive visualization like D3.js with high-performance interactivity over very large or streaming datasets. Bokeh can help anyone who would like to quickly and easily create interactive plots, dashboards, and data applications.
+\newpage
 %==================================%
 \begin{framed}
 	\noindent \textbf{Benefits of Bokeh:}
@@ -62,9 +77,9 @@ Bokeh can produce elegant and interactive visualization like D3.js with high-per
 	\end{itemize}
 \end{framed}
 %==================================%
-
+\newpage
 \subsection*{Installation}
-First, you’ll need to install a few Python packages :
+You may need to install a few Python packages :
 
 
 \begin{framed}
@@ -80,25 +95,31 @@ conda install bokeh
 \centering
 \includegraphics[width=0.7\linewidth]{images/00-BOKEH-version}
 \end{figure}
+\begin{itemize}
+\item This workshop will be based on version 0.10. 
+\item A lot of code for older version of Bokeh no longer work.
+\item To check what version you actually have installed, run the following code
+\end{itemize}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/00-BOKEH-version-check}
+\end{figure}
 %==================================%
+\newpage
 \begin{framed}
 	\noindent \textbf{Challenges with Bokeh}
 	\begin{itemize}
 		\item Like with any upcoming open source library, Bokeh is undergoing a lot of development. So, the code you write today may not be entirely reusable in future.
 		
-		\item  It has relatively less visualization options, when compared to D3.js. Hence, it is unlikely in near future that it will challenge D3.js for its crown.
-		\item  Given the benefits and the challenges, it is currently ideal to rapidly develop prototypes. However, if you want to create something for production environment, D3.js might still be your best bet.
+		\item  It has relatively less visualization options, when compared to \textbf{\textit{D3.js}}. Hence, it is unlikely in near future that it will challenge \textbf{\textit{D3.js}} for its crown.
+		\item  Given the benefits and the challenges, it is currently ideal to rapidly develop prototypes. However, if you want to create something for production environment, \textbf{\textit{D3.js}} might still be your best bet.
 	\end{itemize}
 \end{framed}
 %==================================%
 \newpage
-\noindent This workshop will be based on version 0.10. A lot of code for older version of Bokeh no longer work.
-To check what version you actually have installed, run the following code
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.9\linewidth]{images/00-BOKEH-version-check}
-\end{figure}
 
 %==================================%
 \end{document}

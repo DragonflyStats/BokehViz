@@ -17,10 +17,13 @@
 \setcounter{MaxMatrixCols}{10}
 
 \begin{document}
-\section{Box Plots}
-The BoxPlot can be used to summarize the statistical properties of different groups of data. The label specifies a column in the data to group by, and a box plot is generated for each group:
+	\Large
+\section*{Box Plots}
+The \texttt{BoxPlot} can be used to summarize the statistical properties of different groups of data. The label specifies a column in the data to group by, and a box plot is generated for each group:
+{
+\large
 \begin{framed}
-	\begin{verbatim}
+\begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
 
@@ -32,7 +35,11 @@ output_file("boxplot.html")
 show(p)
 \end{verbatim}
 \end{framed}
-The label can also accept a list of column names, in which case the data is grouped by all the groups in the list:
+}
+\newpage
+\noindent The label can also accept a list of column names, in which case the data is grouped by all the groups in the list:
+{
+	\large
 \begin{framed}
 	\begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
@@ -46,10 +53,13 @@ output_file("boxplot.html")
 show(p)
 \end{verbatim}
 \end{framed}
+}
 %========================================================================= %
-\subsection{Box Color}
-The color of the box in a BoxPlot can be set to a fixed color using the color parameter:
-
+\newpage
+\subsection*{Box Color}
+The colour of the box in a \texttt{BoxPlot} can be set to a fixed colour using the \texttt{color} parameter:
+{
+	\large
 \begin{framed}
 	\begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
@@ -63,8 +73,13 @@ output_file("boxplot.html")
 show(p)
 \end{verbatim}
 \end{framed}
-As with Bar charts, the color can also be given a column name, in which case the boxes are shaded automatically according to the group:
-\begin{framed}
+}
+\newpage
+\noindent As with Bar charts, the color can also be given a column name, in which case the boxes are shaded automatically according to the group:\\
+ 
+\bigskip
+{
+	\large
 	\begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
@@ -76,11 +91,14 @@ output_file("boxplot.html")
 
 show(p)
 \end{verbatim}
-\end{framed}
+}
+\newpage
 %====================================================================== %
-\subsection{Whisker Color}
-The color of the whiskers can be similary controlled using the \texttt{whisker\_color} parameter. For a single color:
-\begin{framed}
+\subsection*{Whisker Color}
+The colour of the whiskers can be similary controlled using the \texttt{whisker\_color} parameter. For a single colour:
+{
+	\large
+
 \begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
@@ -92,10 +110,14 @@ output_file("boxplot.html")
 
 show(p)
 \end{verbatim}
-\end{framed}
-Or shaded automatically according to a column grouping:
 
-\begin{framed}
+}
+\bigskip
+\noindent Or shaded automatically according to a column grouping:\\
+
+\bigskip
+{
+	\large
 \begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
@@ -107,17 +129,18 @@ output_file("boxplot.html")
 
 show(p)
 \end{verbatim}
-\end{framed}
+
+}
 %==================================================================== %
 \newpage
-\subsection{Outliers}
+\subsection*{Outliers}
 \begin{itemize}
 \item By default, BoxPlot charts show outliers above and below the whiskers. 
 \item However, the display of outliers can be turned on or off with the outliers parameter:
 \end{itemize}
 
-
-\begin{framed}
+{
+	\large
 \begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
@@ -129,12 +152,13 @@ output_file("boxplot.html")
 
 show(p)
 \end{verbatim}
-\end{framed}
+}
 
 %==================================================================== %
-\subsection{Markers}
+\subsection*{Markers}
 The marker used for displaying outliers is controlled by the marker parameter:
-\begin{framed}
+{
+	\large
 	\begin{verbatim}
 from bokeh.charts import BoxPlot, output_file, show
 from bokeh.sampledata.autompg import autompg as df
@@ -146,6 +170,6 @@ output_file("boxplot.html")
 
 show(p)
 \end{verbatim}
-\end{framed}
+}
 
 \end{document}
