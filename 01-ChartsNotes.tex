@@ -32,7 +32,7 @@
 \end{itemize}
 
 
-
+\bigskip
 \begin{description}
 \item[Charts:] a high-level interface that is used to build complex statistical plots as quickly and in a simplistic manner.
 \item[Plotting:] an intermediate-level interface that is centered around composing visual glyphs.
@@ -49,8 +49,8 @@
 \section*{Charts}
 
 As mentioned above, it is a high level interface used to present information in standard visualization form. 
-These forms include box plot, bar chart, area plot, heat map, donut chart and many others. You can generate these plots just by passing data frames, numpy arrays and dictionaries.
-
+These forms include box plot, bar chart, area plot, heat map, donut chart and many others. You can generate these plots just by passing data frames, numpy arrays and dictionaries.\\
+\bigskip
 Let’s look at the common methodology to create a chart:
 
 \begin{itemize}
@@ -73,6 +73,7 @@ Let’s look at the common methodology to create a chart:
 
 \newpage
 
+\begin{framed}
 \begin{verbatim}
 #Import library
 
@@ -94,7 +95,7 @@ p = Bar(data, title="Line Chart Example", xlabel='x',
 # show the results
 show(p)
 \end{verbatim}
-
+\end{framed}
 \newpage
 \begin{itemize}
 \item \textbf{Important:} In the chart above,  you can see the tools at the top (zoom, resize, reset, wheel zoom) and these 
@@ -103,7 +104,7 @@ tools allows you to interact with chart.
 various example of charts here.
 \end{itemize}
 
-
+\newpage
 
 %========================================================================% 
 

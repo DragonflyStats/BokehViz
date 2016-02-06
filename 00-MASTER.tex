@@ -1,21 +1,43 @@
-\documentclass[a4paper,12pt]{article}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{eurosym}
-\usepackage{vmargin}
-\usepackage{amsmath}
-\usepackage{graphics}
+
+\documentclass[12pt, a4paper]{report}
+
 \usepackage{epsfig}
 \usepackage{subfigure}
-\usepackage{fancyhdr}
-\usepackage{listings}
-\usepackage{framed}
+%\usepackage{amscd}
+\usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{chngpage}
-%\usepackage{bigints}
-
-
-\setcounter{MaxMatrixCols}{10}
+%\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{subfiles}
+\usepackage{framed}
+\usepackage{subfiles}
+\usepackage{amsthm, amsmath}
+\usepackage{amsbsy}
+\usepackage{framed}
+\usepackage[usenames]{color}
+\usepackage{listings}
+\lstset{% general command to set parameter(s)
+	basicstyle=\small, % print whole listing small
+	keywordstyle=\color{red}\itshape,
+	% underlined bold black keywords
+	commentstyle=\color{blue}, % white comments
+	stringstyle=\ttfamily, % typewriter type for strings
+	showstringspaces=false,
+	numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, %
+	frame=shadowbox,
+	rulesepcolor=\color{black},
+	,columns=fullflexible
+} %
+%\usepackage[dvips]{graphicx}
+\usepackage{natbib}
+\bibliographystyle{chicago}
+\usepackage{vmargin}
+% left top textwidth textheight headheight
+% headsep footheight footskip
+\setmargins{1.0cm}{0.75cm}{18.5 cm}{22cm}{0.5cm}{0cm}{1cm}{1cm}
+%\voffset=-2.5cm
+%\oddsidemargin=1cm
+%\textwidth = 520pt
 
 \begin{document}
 	\large
@@ -28,17 +50,23 @@
 \centering
 \includegraphics[width=0.9\linewidth]{images/TitleSlide}
 \end{figure}
-
-\begin{quote}
-Bokeh is a Python interactive visualization library for large datasets that natively uses the latest web technologies. Its goal is to provide elegant, concise construction of novel 
+{
+\Large
+	\begin{itemize}
+\item Bokeh is a Python interactive visualization library for large datasets that natively uses the latest web technologies.
+\item Its goal is to provide elegant, concise construction of novel 
 graphics in the style of Protovis/D3, while delivering high-performance interactivity over large data to thin clients.
+	\end{itemize}
+}
 
-\end{quote}
+
 \newpage
+{
+\LARGE
 \begin{itemize}
 \item Bokeh is developed by \textbf{Continuum Analytics}.
 \end{itemize}
-\begin{figure}[h!]
+}\begin{figure}[h!]
 \centering
 \includegraphics[width=1.0\linewidth]{images/continuum}
 \end{figure}
@@ -48,6 +76,8 @@ graphics in the style of Protovis/D3, while delivering high-performance interact
 \includegraphics[width=0.9\linewidth]{images/00-continuum-projects}
 \end{figure}
 \newpage
+{
+	\Large
 \section*{Bokeh scales visualization to Big Data}
 \textit{(From Bokeh Documentation)}
 \begin{itemize}
@@ -60,9 +90,9 @@ graphics in the style of Protovis/D3, while delivering high-performance interact
 \item Bokeh addresses these problems at their core by using a declarative data transformation scheme, and is engineered to operate in a client/server model for the modern web.
 
 
-\item Bokeh can produce elegant and interactive visualization like D3.js with high-performance interactivity over very large or streaming datasets. Bokeh can help anyone who would like to quickly and easily create interactive plots, dashboards, and data applications.
+\item Bokeh can produce elegant and interactive visualization like \textbf{\textit{D3.js}} with high-performance interactivity over very large or streaming datasets. Bokeh can help anyone who would like to quickly and easily create interactive plots, dashboards, and data applications.
 \end{itemize}
-
+}
 \newpage
 %==================================%
 \begin{framed}
@@ -79,7 +109,7 @@ graphics in the style of Protovis/D3, while delivering high-performance interact
 %==================================%
 \newpage
 \subsection*{Installation}
-You may need to install a few Python packages :
+Usually they are already installed, but sometimes you may need to install a few Python packages :
 
 
 \begin{framed}
@@ -95,12 +125,15 @@ conda install bokeh
 \centering
 \includegraphics[width=0.7\linewidth]{images/00-BOKEH-version}
 \end{figure}
+{
+	\Large
 \begin{itemize}
 \item This workshop will be based on version 0.10. 
 \item A lot of code for older version of Bokeh no longer work.
 \item To check what version you actually have installed, run the following code
+\item Bokeh is under active development. Expect the next version soon.
 \end{itemize}
-
+}
 
 \begin{figure}[h!]
 	\centering
@@ -108,7 +141,10 @@ conda install bokeh
 \end{figure}
 %==================================%
 \newpage
+{
+	\Large
 \begin{framed}
+	
 	\noindent \textbf{Challenges with Bokeh}
 	\begin{itemize}
 		\item Like with any upcoming open source library, Bokeh is undergoing a lot of development. So, the code you write today may not be entirely reusable in future.
@@ -117,12 +153,13 @@ conda install bokeh
 		\item  Given the benefits and the challenges, it is currently ideal to rapidly develop prototypes. However, if you want to create something for production environment, \textbf{\textit{D3.js}} might still be your best bet.
 	\end{itemize}
 \end{framed}
+}
 \newpage
 \section*{Bokeh Graphics with Jupyter Notebooks}
 
 \begin{framed}
 \noindent \textbf{Displaying Inline Plots}\\ 
-To display Bokeh plots inline in an IPython/Jupyter notebook, use the \texttt{output\_notebook()} function from bokeh.io instead of (or in addition to) the \texttt{output\_file()}
+To display Bokeh plots inline in an IPython/Jupyter notebook, use the \texttt{output\_notebook()} function from \texttt{bokeh.io} instead of (or in addition to) the \texttt{output\_file()}
 \end{framed}
 
 \begin{itemize}
@@ -131,6 +168,7 @@ To display Bokeh plots inline in an IPython/Jupyter notebook, use the \texttt{ou
 	\item The output graphic has some controls (pan , zoom, resize etc). Try these controls out.
 	\item Vary some of the values (width, either , title).
 \end{itemize}
+\newpage
 \begin{framed}
 	\begin{verbatim}
 	#Import library
@@ -166,6 +204,24 @@ To display Bokeh plots inline in an IPython/Jupyter notebook, use the \texttt{ou
 \end{figure}
 \newpage
 %==================================%
+\section*{Interfaces}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1.1\linewidth]{images/00-Interfaces}
+\end{figure}
+\begin{itemize}
+	\item Bokeh is intended to be useful to data-scientists and domain experts, working at a very high level, as well as to application developers and software engineers, who may want more control or access to more sophisticated features. 
+	\item Because of this, Bokeh takes a layered approach and offers programming interfaces appropriate to different levels, as well as some compatibility interfaces to make use of existing code from other libraries. 
+	
+	\item This section provides an overview of the different interfaces that are available to Bokeh users, as well as more context about the most important concepts central to the library. 
+	% If you’d like to jump right into plotting, go to Plotting with Basic Glyphs or Using High-level Charts.
+\end{itemize}
+
+
+
+%===================================================================================== %
+\newpage
+
 \section*{Visualization with Bokeh}
 \begin{itemize}
 	\item Bokeh offers both powerful and flexible features which imparts simplicity and highly advanced customization. 
@@ -190,10 +246,14 @@ To display Bokeh plots inline in an IPython/Jupyter notebook, use the \texttt{ou
 %========================================================================% 
 \newpage
 
-\section*{Charts Example 1}
+\section*{Charts - Example 1}
 
-As mentioned above, it is a high level interface used to present information in standard visualization form. 
-These forms include box plot, bar chart, area plot, heat map, donut chart and many others. You can generate these plots just by passing data frames, numpy arrays and dictionaries.
+\begin{itemize}
+\item As mentioned above, it is a high level interface used to present information in standard visualization form. 
+\item These forms include box plot, bar chart, area plot, heat map, donut chart and many others.
+\item You can generate these plots just by passing data frames, numpy arrays and dictionaries.
+\end{itemize}
+
 
 Let’s look at the common methodology to create a chart:
 
@@ -216,7 +276,7 @@ Let’s look at the common methodology to create a chart:
 %We will follow above listed steps to create a chart:
 
 \newpage
-
+\begin{framed}
 \begin{verbatim}
 #Import library
 
@@ -238,7 +298,7 @@ ylabel='values', width=400, height=400)
 # show the results
 show(p)
 \end{verbatim}
-
+\end{framed}
 \newpage
 \begin{itemize}
 	\item \textbf{Important:} In the chart above,  you can see the tools at the top (zoom, resize, reset, wheel zoom) and these 
@@ -293,7 +353,7 @@ Bokeh_Box_Plot
 \end{verbatim}
 
 %========================================================================%
-
+\newpage
 \section*{Components}
 \Large
 
@@ -307,23 +367,6 @@ Bokeh is actually composed of two library components.
 	\item These python model classes know how to validate their content and attributes, and also how to serialize themselves to JSON. 
 	
 \end{itemize}
-\newpage
-\section*{Interfaces}
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=1.1\linewidth]{images/00-Interfaces}
-\end{figure}
-\begin{itemize}
-	\item Bokeh is intended to be useful to data-scientists and domain experts, working at a very high level, as well as to application developers and software engineers, who may want more control or access to more sophisticated features. 
-	\item Because of this, Bokeh takes a layered approach and offers programming interfaces appropriate to different levels, as well as some compatibility interfaces to make use of existing code from other libraries. 
-	
-	\item This section provides an overview of the different interfaces that are available to Bokeh users, as well as more context about the most important concepts central to the library. 
-	% If you’d like to jump right into plotting, go to Plotting with Basic Glyphs or Using High-level Charts.
-\end{itemize}
-
-
-
-%===================================================================================== %
 \newpage
 
 \section*{\texttt{bokeh.models}}
@@ -341,25 +384,32 @@ Here are some examples for a \texttt{Rect glyph} object:
 	
 	# properties can be configured when a 
 	# model object is initialized
+	
 	glyph = Rect(x="x", y="y2", 
 	w=10, h=20, line_color=None)
 	
+	
 	# or by assigning values to attributes
 	# on the model later
+	
 	glyph.fill_alpha = 0.5
 	glyph.fill_color = "navy"
 	\end{verbatim}
 \end{framed}
 \newpage
+{
+	\Large
 \begin{itemize}
 	\item These methods of configuration work in general for all Bokeh models. Because of that, and because all Bokeh interfaces ultimately produce collections of Bokeh models, styling and configuring plots and widgets is accomplished in basically the same way, regardless of which interface is used.
-	
-	\item Using the \texttt{bokeh.models} interface provides complete control over how Bokeh plots and Bokeh widgets are put together and configured.\\ ( hence:  \textbf{\textit{Low Level}}) 
+	\smallskip
+	\item Using the \texttt{bokeh.models} interface provides complete control over how Bokeh plots and Bokeh widgets are put together and configured.\\ (hence:  \textbf{\textit{Low Level}}) 
+		\smallskip
 	\item However, this provides no help with assembling the models in meaningful or correct ways. It is entirely up to developers to build the visualization piece by piece.
-	
+		\smallskip
 	\item Most users will probably want to use one of the higher level interfaces described, unless they have specialized requirements that necessitate finer control. 
 	%For more information about the details of all Bokeh models, consult the Reference Guide.
 \end{itemize}
+}
 \newpage
 \section*{\texttt{bokeh.plotting}}
 \begin{itemize}
@@ -417,7 +467,7 @@ Here are some examples for a \texttt{Rect glyph} object:
 \newpage
 \section*{\texttt{bokeh.charts}}
 \begin{itemize}
-	\item Bokeh also provides a very high-level bokeh.charts interface for quickly creating statistical charts. 
+	\item Bokeh also provides a very high-level \texttt{bokeh.charts} interface for quickly creating statistical charts. 
 	\item As with \texttt{bokeh.plotting}, the main purpose of the interface is to help simplify the creation of Bokeh object graphs by encapsulating patterns of assembling Bokeh models. 
 	\item The \texttt{bokeh.charts} interface may also take the additional step of performing necessary statistical or data processing for the user. 
 	
@@ -428,9 +478,10 @@ Here are some examples for a \texttt{Rect glyph} object:
 \newpage
 
 \subsection*{Charts example}
-The interface includes chart types such as: \texttt{Bar()}, \texttt{BoxPlot()}, \texttt{Histogram()}, \texttt{TimeSeries()}, and many others. 
+The interface includes chart types such as: \texttt{Bar()}, \texttt{BoxPlot()}, \texttt{Histogram()}, \texttt{TimeSeries()}, and many others. \\
+\bigskip
 
-One simple example using \texttt{Scatter()} is shown below:
+\noindent One simple example using \texttt{Scatter()} is shown below:
 {
 	\begin{verbatim}
 	
@@ -442,23 +493,27 @@ One simple example using \texttt{Scatter()} is shown below:
 	
 	# create a scatter chart
 	p = Scatter(df, x='mpg', y='hp', color='cyl',
-	title="MPG vs HP (colored by CYL)",
-	legend='top_right',
-	xlabel="Miles Per Gallon",
-	ylabel="Horsepower")
+	  title="MPG vs HP (colored by CYL)",
+	  legend='top_right',
+	  xlabel="Miles Per Gallon",
+	  ylabel="Horsepower")
 	
 	# specify how to output the plot(s)
-	output_file("chart.html")
+	  output_file("chart.html")
 	
 	# display the figure
-	show(p)
+	  show(p)
 	\end{verbatim}
 	
 }
 
 \newpage
 
-Important to note is that the same output functions are used across different interfaces. As with \texttt{bokeh.plotting}, the output functions \texttt{output\_file()} and \texttt{show()}, etc. that are defined in bokeh.io, are also importable from \texttt{bokeh.charts} as a convenience.
+\begin{itemize}
+\item Important to note is that the same output functions are used across different interfaces. 
+\item As with \texttt{bokeh.plotting}, the output functions \texttt{output\_file()} and \texttt{show()}, etc. that are defined in \texttt{bokeh.io}, are also importable from \texttt{bokeh.charts} as a convenience.
+\end{itemize}
+
 
 \newpage
 \section*{Box Plots}
@@ -518,7 +573,7 @@ The colour of the box in a \texttt{BoxPlot} can be set to a fixed colour using t
 	\end{framed}
 }
 \newpage
-\noindent As with Bar charts, the color can also be given a column name, in which case the boxes are shaded automatically according to the group:\\
+\noindent As with \texttt{BarCharts}, the color can also be given a column name, in which case the boxes are shaded automatically according to the group:\\
 
 \bigskip
 {
@@ -541,7 +596,7 @@ The colour of the box in a \texttt{BoxPlot} can be set to a fixed colour using t
 The colour of the whiskers can be similary controlled using the \texttt{whisker\_color} parameter. For a single colour:
 {
 	\large
-	
+	\begin{framed}
 	\begin{verbatim}
 	from bokeh.charts import BoxPlot, output_file, show
 	from bokeh.sampledata.autompg import autompg as df
@@ -553,7 +608,7 @@ The colour of the whiskers can be similary controlled using the \texttt{whisker\
 	
 	show(p)
 	\end{verbatim}
-	
+	\end{framed}
 }
 \bigskip
 \noindent Or shaded automatically according to a column grouping:\\
@@ -561,6 +616,7 @@ The colour of the whiskers can be similary controlled using the \texttt{whisker\
 \bigskip
 {
 	\large
+	\begin{framed}
 	\begin{verbatim}
 	from bokeh.charts import BoxPlot, output_file, show
 	from bokeh.sampledata.autompg import autompg as df
@@ -572,7 +628,7 @@ The colour of the whiskers can be similary controlled using the \texttt{whisker\
 	
 	show(p)
 	\end{verbatim}
-	
+	\end{framed}
 }
 %==================================================================== %
 \newpage
@@ -584,6 +640,7 @@ The colour of the whiskers can be similary controlled using the \texttt{whisker\
 
 {
 	\large
+	\begin{framed}
 	\begin{verbatim}
 	from bokeh.charts import BoxPlot, output_file, show
 	from bokeh.sampledata.autompg import autompg as df
@@ -595,6 +652,7 @@ The colour of the whiskers can be similary controlled using the \texttt{whisker\
 	
 	show(p)
 	\end{verbatim}
+	\end{framed}
 }
 
 %==================================================================== %
@@ -602,6 +660,7 @@ The colour of the whiskers can be similary controlled using the \texttt{whisker\
 The marker used for displaying outliers is controlled by the marker parameter:
 {
 	\large
+	\begin{framed}
 	\begin{verbatim}
 	from bokeh.charts import BoxPlot, output_file, show
 	from bokeh.sampledata.autompg import autompg as df
@@ -613,6 +672,7 @@ The marker used for displaying outliers is controlled by the marker parameter:
 	
 	show(p)
 	\end{verbatim}
+	\end{framed}
 }
 \newpage
 
@@ -640,9 +700,10 @@ The marker used for displaying outliers is controlled by the marker parameter:
 	p.yaxis.axis_label = 'Petal Width'
 	
 	p.circle(flowers["petal_length"],
-	flowers["petal_width"],
-	color=flowers["color"], 
-	fill_alpha=0.2, size=10, )
+    	flowers["petal_width"],
+	    color=flowers["color"], 
+	    fill_alpha=0.2, size=10, )
+	
 	show(p)
 	\end{verbatim}
 \end{framed}
